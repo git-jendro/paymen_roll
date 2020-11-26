@@ -4411,6 +4411,47 @@ input[type=button].btn-block {
   list-style: none;
 }
 
+.sidenav {
+    padding-top: 5rem;
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    z-index: 1;
+}
+
+.sidenav a {
+    padding: 0px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #818181;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.main {
+    margin-left: 160px;
+    /* Same as the width of the sidenav */
+    font-size: 28px;
+    /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
@@ -4498,6 +4539,7 @@ input[type=button].btn-block {
 
 .navbar {
   position: relative;
+  z-index: 5;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -4832,7 +4874,8 @@ input[type=button].btn-block {
   display: none;
 }
 
-.navbar-light .navbar-brand {
+
+ght .navbar-brand {
   color: rgba(0, 0, 0, 0.9);
 }
 
@@ -8520,7 +8563,7 @@ button.bg-dark:focus {
 
 .ml-5,
 .mx-5 {
-  margin-left: 3rem !important;
+  margin-left: 6rem !important;
 }
 
 .p-0 {
