@@ -27,7 +27,7 @@
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container">
                     <a class="navbar-item" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        Dashboard
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -77,23 +77,46 @@
                 </div>
             </nav>
             <nav> 
-                @guest
+                {{-- @guest
                 @else
                 <!-- Sidebar -->
-                    <div class="sidenav ">
+                    <div class="sidenav navbar-light bg-white shadow-sm">
                         <a href="/karyawan" class="py-3">Data Karyawan</a>
-                        <a href="/gaji" class="py-3">Data Gaji</a>
+                        <button class="dropdown-btn dropdown-toggle">Data Gaji
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-container">
+                            <a href="#">Data Gaji</a>
+                            <a href="#">Ketentuan Gaji</a>
+                            <a href="#">Status Pembayaran</a>
+                            <a href="#">Cetak Slip Gaji</a>
+                        </div>
                         <a href="/absen" class="py-3">Data Absen</a>
                         <a href="/laporan" class="py-3">Data Laporan</a>
                     </div>
                 </div>
-                @endguest
+                @endguest --}}
             </nav>
-            <div class="row ml-5">
+            <div class="row py-5">
                 @yield('content')
             </div>
         </div>
 
     </body>
+<script>
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
 
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+</script>
 </html>
