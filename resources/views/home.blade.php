@@ -25,7 +25,7 @@
             </div>
             <div class="col-md-4 py-4">
                 <div class="card pt-5" style="height: 200px; width: 300px">
-                    <a href="">
+                    <a href="/gaji">
                         <div class="card-body pt-4">
                             Data Gaji
                         </div>
@@ -36,7 +36,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-4 py-4">
                 <div class="card pt-5" style="height: 200px; width: 300px">
-                    <a href="">
+                    <a href="/gaji/ketentuan">
                         <div class="card-body pt-4">
                             Data Ketentuan Gaji
                         </div>

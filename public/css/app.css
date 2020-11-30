@@ -171,14 +171,13 @@ sup {
 }
 
 a {
-  color: #3490dc;
+  color: #818181;
   text-decoration: none;
-  background-color: transparent;
+  background-color: none;
 }
 
 a:hover {
-  color: #1d68a7;
-  text-decoration: underline;
+  color: #636262;
 }
 
 a:not([href]):not([class]) {
@@ -2675,6 +2674,13 @@ fieldset:disabled a.btn {
   color: #fff;
   background-color: #3490dc;
   border-color: #3490dc;
+}
+
+.btn-oval {
+  color: #fff;
+  background-color: #3490dc;
+  border-color: #3490dc;
+  border-radius: 50px;
 }
 
 .btn-primary:hover {

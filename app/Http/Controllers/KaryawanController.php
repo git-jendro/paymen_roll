@@ -52,9 +52,10 @@ class KaryawanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    // public function show($id)
+    public function show()
     {
-        //
+        return view('/karyawan/show');
     }
 
     /**
@@ -63,9 +64,10 @@ class KaryawanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    // public function edit($id)
+    public function edit()
     {
-        //
+        return view('/karyawan/edit');
     }
 
     /**

@@ -26,9 +26,17 @@ Route::get('/', 'HomeController@index')->name('home');
 //Route Karyawan
 Route::get('/karyawan', 'KaryawanController@index');
 Route::get('/karyawan/create', 'KaryawanController@create');
+Route::post('/karyawan/store', 'KaryawanController@store');
+Route::get('/karyawan/show', 'KaryawanController@show');
+Route::get('/karyawan/edit', 'KaryawanController@edit');
+Route::post('/karyawan/{id}', 'KaryawanController@update');
+Route::delete('/karyawan/{id}', 'KaryawanController@delete');
 
 //Route Gaji
-
+Route::get('/gaji', 'GajiController@index');
+Route::get('/gaji/ketentuan', 'GajiController@ketentuan');
+Route::get('/gaji/status', 'GajiController@status');
+ 
 //Route Absensi
 
 //Route Laporan
