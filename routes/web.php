@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('home');
-// });
+Route::get('gaji/invoice', function () {
+    return view('/gaji/invoice');
+
+    // $pdf = PDF::loadView('gaji/invoice');
+    // return $pdf->download('gaji/invoice.pdf');
+});
 
 
 Auth::routes();
@@ -27,16 +30,22 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/karyawan', 'KaryawanController@index');
 Route::get('/karyawan/create', 'KaryawanController@create');
 Route::post('/karyawan/store', 'KaryawanController@store');
-Route::get('/karyawan/show', 'KaryawanController@show');
-Route::get('/karyawan/edit', 'KaryawanController@edit');
-Route::post('/karyawan/{id}', 'KaryawanController@update');
-Route::delete('/karyawan/{id}', 'KaryawanController@delete');
+Route::get('/karyawan/{id}', 'KaryawanController@show');
+Route::get('/karyawan/{id}/edit', 'KaryawanController@edit');
+Route::patch('/karyawan/{id}', 'KaryawanController@update');
+Route::get('/karyawan/{id}/delete', 'KaryawanController@destroy');
 
 //Route Gaji
 Route::get('/gaji', 'GajiController@index');
 Route::get('/gaji/ketentuan', 'GajiController@ketentuan');
 Route::get('/gaji/status', 'GajiController@status');
+// Route::get('/gaji/print', 'GajiController@print');
  
 //Route Absensi
+Route::get('/absen', 'AbsenController@index');
+Route::get('/absen/create', 'AbsenController@create');
+Route::get('/absen/edit', 'AbsenController@edit');
 
 //Route Laporan
+Route::get('/laporan', 'LaporanController@index');
+Route::get('/laporan/lihat', 'LaporanController@lihat');

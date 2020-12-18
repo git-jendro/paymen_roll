@@ -13,7 +13,7 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        //
+        return view('/laporan/index');
     }
 
     /**
@@ -80,5 +80,10 @@ class LaporanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function lihat()
+    {
+        return view('/laporan/lihat');
     }
 }

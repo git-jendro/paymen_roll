@@ -21,9 +21,9 @@ class GajiController extends Controller
         return view('/gaji/index');
     }
 
-    public function ketentuan()
+    public function status()
     {
-        return view('/gaji/ketentuan');
+        return view('/gaji/status');
     }
 
     public function store(Request $request)
@@ -36,9 +36,9 @@ class GajiController extends Controller
         return view('/gaji/index');
     }
 
-    public function status()
+    public function ketentuan()
     {
-        return view('/gaji/status');
+        return view('/gaji/ketentuan');
     }
 
     public function update(Request $request, $id)
@@ -50,4 +50,11 @@ class GajiController extends Controller
     {
         //
     }
+
+    // public function print()
+    // {
+    //     $data = 'Test';
+    //     $pdf = \PDF::loadView('pdf.invoice');
+    //     return $pdf->download('invoice.pdf');
+    // }
 }

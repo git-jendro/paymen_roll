@@ -7,13 +7,23 @@ use Illuminate\Http\Request;
 class AbsenController extends Controller
 {
     /**
+    * Create a new controller instance.
+    *
+    * @return void
+    */
+    public function __construct()
+    {
+    $this->middleware('auth');
+    }
+    
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return view('/absen/index');
     }
 
     /**
@@ -23,7 +33,7 @@ class AbsenController extends Controller
      */
     public function create()
     {
-        //
+        return view('/absen/create');
     }
 
     /**
@@ -54,9 +64,9 @@ class AbsenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        return view('/absen/edit');
     }
 
     /**

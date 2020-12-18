@@ -303,7 +303,7 @@ button::-moz-focus-inner,
 
 input[type=radio],
 input[type=checkbox] {
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   padding: 0;
 }
 
@@ -1775,7 +1775,7 @@ pre code {
 
 .table th,
 .table td {
-  padding: 0.75rem;
+  padding: 0.15rem;
   vertical-align: top;
   border-top: 1px solid #dee2e6;
 }
@@ -2551,7 +2551,8 @@ textarea.form-control.is-invalid {
 .form-inline {
   display: flex;
   flex-flow: row wrap;
-  align-items: center;
+  align-items: left;
+  text-align: left !important;
 }
 
 .form-inline .form-check {
@@ -2561,8 +2562,8 @@ textarea.form-control.is-invalid {
 @media (min-width: 576px) {
   .form-inline label {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: left;
+    justify-content: left;
     margin-bottom: 0;
   }
 
@@ -2570,7 +2571,7 @@ textarea.form-control.is-invalid {
     display: flex;
     flex: 0 0 auto;
     flex-flow: row wrap;
-    align-items: center;
+    align-items: left;
     margin-bottom: 0;
   }
 
@@ -6403,7 +6404,7 @@ a.close.disabled {
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
+    /* max-width: 500px; */
     margin: 1.75rem auto;
   }
 
@@ -10633,6 +10634,14 @@ button.bg-dark:focus {
   background-color: rgba(0, 0, 0, 0);
 }
 
+.text-underline {
+    text-decoration: underline;
+}
+
+.text-bold {
+    text-decoration: bold;
+}
+
 .text-monospace {
   font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
 }
@@ -10979,6 +10988,13 @@ a.text-dark:focus {
   .table .thead-dark th {
     color: inherit;
     border-color: #dee2e6;
+  }
+
+  .tr td:first-child:before {
+      counter-increment: Serial;
+      /* Increment the Serial counter */
+      content: counter(Serial);
+      /* Display the counter */
   }
 }
 

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Dashboard')
+
 @section('content')
 
 <div class="container ml-5">
@@ -16,7 +18,7 @@
             </div>
             <div class="col-md-4 py-4">
                 <div class="card pt-5" style="height: 200px; width: 300px">
-                    <a href="">
+                    <a href="/absen">
                         <div class="card-body pt-4">
                             Data Absensi
                         </div>
