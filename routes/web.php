@@ -39,6 +39,7 @@ Route::get('/karyawan/{id}/delete', 'KaryawanController@destroy');
 Route::get('/gaji', 'GajiController@index');
 Route::get('/gaji/ketentuan', 'GajiController@ketentuan');
 Route::get('/gaji/status', 'GajiController@status');
+Route::post('/gaji/store', 'GajiController@store');
 // Route::get('/gaji/print', 'GajiController@print');
  
 //Route Absensi

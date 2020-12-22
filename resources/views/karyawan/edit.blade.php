@@ -32,7 +32,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" value="{{$karyawan->nip}}" name="nip" class="form-control @error('nip') is-invalid @enderror" placeholder="NIP" readonly>
                                         @error('nip')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" value="{{$karyawan->nama}}" name="nama" class="form-control @error('nama') is-invalid @enderror" placeholder="Nama">
                                         @error('nama')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                                             @endforeach
                                         </select>
                                         @error('JK')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                                         <input type="text" class="form-control @error('tempatlahir') is-invalid @enderror" value="{{$karyawan->tempatlahir}}" name="tempatlahir"
                                         placeholder="Tempat Lahir">
                                     @error('tempatlahir')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                     <div class="col-sm-8">
                                         <input type="date" class="form-control @error('dob') is-invalid @enderror" value="{{$karyawan->dob}}" name="dob">
                                     @error('dob')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                     </div>
                                 </div>
@@ -85,7 +85,7 @@
                                         <input type="text" class="form-control @error('notel') is-invalid @enderror" value="{{$karyawan->notel}}" name="notel"
                                         placeholder="Nomor Telpon">
                                     @error('notel')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
                                         <input type="email" class="form-control @error('email') is-invalid @enderror" value="{{$karyawan->email}}" name="email"
                                         placeholder="Email">
                                     @error('email')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@
                                         <input type="text" class="form-control @error('noktp') is-invalid @enderror" value="{{$karyawan->noktp}}" name="noktp"
                                         placeholder="Nomor KTP">
                                     @error('noktp')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                     </div>
                                 </div>
@@ -115,8 +115,17 @@
                                         <input type="text" class="form-control @error('nokk') is-invalid @enderror" value="{{$karyawan->nokk}}" name="nokk"
                                         placeholder="Nomor KK">
                                     @error('nokk')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
+                                    </div>
+                                </div>
+                                <div class="form-inline mt-4 pt-2">
+                                    <label class="col-sm-4 col-form-label">No. BPJS TK</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" value="{{$karyawan->noBpjsKet}}" name="noBpjsKet" class="form-control @error('noBpjsKet') is-invalid @enderror" placeholder="No. BPJS TK">
+                                        @error('noBpjsKet')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +136,7 @@
                                         <input type="text" class="form-control @error('npwp') is-invalid @enderror" value="{{$karyawan->npwp}}" name="npwp"
                                         placeholder="NPWP">
                                     @error('npwp')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                     </div>
                                 </div>
@@ -142,7 +151,7 @@
                                             @endforeach
                                         </select>
                                         @error('statusNikah')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -151,7 +160,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" value="{{$karyawan->namaAyah}}" name="namaAyah" class="form-control @error('namaAyah') is-invalid @enderror" placeholder="Nama Ayah">
                                     @error('namaAyah')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                     </div>
                                 </div>
@@ -160,7 +169,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" value="{{$karyawan->namaIbu}}" name="namaIbu" class="form-control @error('namaIbu') is-invalid @enderror" placeholder="Nama Ibu">
                                         @error('namaIbu')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -175,7 +184,7 @@
                                             @endforeach
                                         </select>
                                         @error('statusKerja')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -190,7 +199,7 @@
                                             @endforeach
                                         </select>
                                         @error('tipeumr')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -199,7 +208,7 @@
                                     <div class="col-sm-8">
                                         <textarea class="form-control @error('alamatktp') is-invalid @enderror" name="alamatktp" rows="3">{{$karyawan->alamatktp}}</textarea>
                                         @error('alamatktp')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -208,7 +217,16 @@
                                     <div class="col-sm-8">
                                         <textarea class="form-control @error('alamatdom') is-invalid @enderror" name="alamatdom" rows="3">{{$karyawan->alamatdom}}</textarea>
                                         @error('alamatdom')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-inline my-2">
+                                    <label class="col-sm-4 col-form-label">No. BPJS KES</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" value="{{$karyawan->noBpjsKes}}" name="noBpjsKes" class="form-control @error('noBpjsKes') is-invalid @enderror" placeholder="No. BPJS KES">
+                                        @error('noBpjsKes')
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -216,7 +234,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card my-3">
+                {{-- <div class="card my-3">
                     <div class="card-body">
                         <div>
                             <h2>Informasi Keluarga</h2>
@@ -229,7 +247,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" value="{{$karyawan->namaPas}}" name="namaPas" class="form-control @error('namaPas') is-invalid @enderror" placeholder="Nama Pasangan">
                                         @error('namaPas')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -245,7 +263,7 @@
                                             @endforeach
                                         </select>
                                         @error('jkPas')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -254,7 +272,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" value="{{$karyawan->noKtpPas}}" name="noKtpPas" class="form-control  @error('noKtpPas') is-invalid @enderror" placeholder="Nomor KTP">
                                         @error('noKtpPas')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -263,7 +281,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" value="{{$karyawan->tempatLahirPas}}" name="tempatLahirPas" class="form-control @error('tempatLahirPas') is-invalid @enderror" placeholder="Tempat Lahir">
                                         @error('tempatLahirPas')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -272,7 +290,7 @@
                                     <div class="col-sm-8">
                                         <input type="date" {{$karyawan->dobPas != null ? 'value="'.$karyawan->dobPas.'"' : ''}} name="dobPas" class="form-control @error('dobPas') is-invalid @enderror">
                                         @error('dobPas')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -281,7 +299,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" value="{{$karyawan->namaAn1}}" name="namaAn1" class="form-control @error('namaAn1') is-invalid @enderror" placeholder="Nama Anak 1">
                                         @error('namaAn1')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -297,7 +315,7 @@
                                             @endforeach
                                         </select>
                                         @error('jkAn1')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -306,7 +324,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" value="{{$karyawan->tempatLahirAn1}}" name="tempatLahirAn1" class="form-control @error('tempatLahirAn1') is-invalid @enderror" placeholder="Tempat Lahir Anak 1">
                                         @error('tempatLahirAn1')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -315,7 +333,7 @@
                                     <div class="col-sm-8">
                                         <input type="date"  value="{{$karyawan->dobAn1}}" name="dobAn1" class="form-control @error('dobAn1') is-invalid @enderror">
                                         @error('dobAn1')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -326,7 +344,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" value="{{$karyawan->namaAn2}}" name="namaAn2" class="form-control @error('namaAn2') is-invalid @enderror" placeholder="Nama Anak 2">
                                         @error('namaAn2')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -342,7 +360,7 @@
                                             @endforeach
                                         </select>
                                         @error('jkAn2')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -351,7 +369,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" value="{{$karyawan->tempatLahirAn2}}" name="tempatLahirAn2" class="form-control @error('tempatLahirAn2') is-invalid @enderror" placeholder="Tempat Lahir Anak 2">
                                         @error('tempatLahirAn2')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -360,7 +378,7 @@
                                     <div class="col-sm-8">
                                         <input type="date"  value="{{$karyawan->dobAn2}}" name="dobAn2" class="form-control @error('dobAn2') is-invalid @enderror">
                                         @error('dobAn2')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -369,7 +387,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" value="{{$karyawan->namaAn3}}" name="namaAn3" class="form-control @error('namaAn3') is-invalid @enderror" placeholder="Nama Anak 3">
                                         @error('namaAn3')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -385,7 +403,7 @@
                                             @endforeach
                                         </select>
                                         @error('jkAn3')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -394,7 +412,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" value="{{$karyawan->tempatLahirAn3}}" name="tempatLahirAn3" class="form-control @error('tempatLahirAn3') is-invalid @enderror" placeholder="Tempat Lahir Anak 3">
                                         @error('tempatLahirAn3')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -403,14 +421,14 @@
                                     <div class="col-sm-8">
                                         <input type="date"  value="{{$karyawan->dobAn3}}" name="dobAn3" class="form-control @error('dobAn3') is-invalid @enderror">
                                         @error('dobAn3')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
             <div class="container col-4" style="margin-left: 0px; margin-right: 0px; padding-left:0px">
@@ -432,7 +450,7 @@
                                         @endforeach
                                     </select>
                                     @error('namaBank')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -441,7 +459,7 @@
                                 <div class="col-sm-8">
                                     <input type="text" value="{{$karyawan->cabang}}" name="cabang" class="form-control @error('cabang') is-invalid @enderror" placeholder="Cabang">
                                     @error('cabang')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -450,7 +468,7 @@
                                 <div class="col-sm-8">
                                     <input type="text" value="{{$karyawan->noRek}}" name="noRek" class="form-control @error('noRek') is-invalid @enderror" placeholder="Nomor Rekening">
                                     @error('noRek')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -459,7 +477,7 @@
                                 <div class="col-sm-8">
                                     <input type="text" value="{{$karyawan->atasNama}}" name="atasNama"  class="form-control @error('atasNama') is-invalid @enderror" placeholder="Atas Nama">
                                     @error('atasNama')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -484,7 +502,7 @@
                                         @endforeach
                                     </select>
                                     @error('PendidikanTerakhir')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -493,7 +511,7 @@
                                 <div class="col-sm-8">
                                     <input type="text" value="{{$karyawan->ipk}}" name="ipk" class="form-control @error('ipk') is-invalid @enderror" placeholder="IPK">
                                         @error('ipk')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                 </div>
                             </div>
@@ -508,7 +526,7 @@
                                         @endforeach
                                     </select>
                                     @error('statusPendidikan')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -517,7 +535,7 @@
                                 <div class="col-sm-8">
                                     <input type="text" value="{{$karyawan->tahunLulus}}" name="tahunLulus" class="form-control @error('tahunLulus') is-invalid @enderror" placeholder="Tahun Ajaran">
                                         @error('tahunLulus')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                 </div>
                             </div>
@@ -542,7 +560,7 @@
                                         @endforeach
                                     </select>
                                     @error('jabatan')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -557,7 +575,7 @@
                                         @endforeach
                                     </select>
                                     @error('divisi')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -572,7 +590,7 @@
                                         @endforeach
                                     </select>
                                     @error('penempatan')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -581,7 +599,7 @@
                                 <div class="col-sm-8">
                                     <input type="date" value="{{$karyawan->tanggalMasuk}}" name="tanggalMasuk" class="form-control @error('tanggalMasuk') is-invalid @enderror" placeholder="Tanggal Masuk">
                                         @error('tanggalMasuk')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                 </div>
                             </div>
@@ -590,7 +608,7 @@
                                 <div class="col-sm-8">
                                     <input type="text" value="{{$karyawan->noPkwt}}" name="noPkwt" class="form-control @error('noPkwt') is-invalid @enderror" placeholder="Nomor PKWT">
                                         @error('noPkwt')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                 </div>
                             </div>
@@ -599,7 +617,7 @@
                                 <div class="col-sm-8">
                                     <input type="date" value="{{$karyawan->mulai}}" name="mulai" class="form-control @error('mulai') is-invalid @enderror" placeholder="Tanggal Mulai">
                                         @error('mulai')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                 </div>
                             </div>
@@ -608,14 +626,14 @@
                                 <div class="col-sm-8">
                                     <input type="date" value="{{$karyawan->berakhir}}" name="berakhir" class="form-control @error('berakhir') is-invalid @enderror" placeholder="Tanggal Berakhir">
                                         @error('berakhir')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card my-2">
+                {{-- <div class="card my-2">
                     <div class="card-body">
                         <div>
                             <h2>Informasi BPJS</h2>
@@ -627,7 +645,7 @@
                                 <div class="col-sm-8">
                                     <input type="text" value="{{$karyawan->noBpjsKet}}" name="noBpjsKet" class="form-control @error('noBpjsKet') is-invalid @enderror" placeholder="No. BPJS TK">
                                         @error('noBpjsKet')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                 </div>
                             </div>
@@ -636,7 +654,7 @@
                                 <div class="col-sm-8">
                                     <input type="text" value="{{$karyawan->noBpjsKes}}" name="noBpjsKes" class="form-control @error('noBpjsKes') is-invalid @enderror" placeholder="No. BPJS KES">
                                         @error('noBpjsKes')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                 </div>
                             </div>
@@ -645,7 +663,7 @@
                                 <div class="col-sm-8">
                                     <input type="text" value="{{$karyawan->noBpjsKesPas}}" name="noBpjsKesPas" class="form-control @error('noBpjsKesPas') is-invalid @enderror" placeholder="No. BPJS KES Pasangan">
                                         @error('noBpjsKesPas')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                 </div>
                             </div>
@@ -654,7 +672,7 @@
                                 <div class="col-sm-8">
                                     <input type="text" value="{{$karyawan->noBpjsKesAn1}}" name="noBpjsKesAn1" class="form-control @error('noBpjsKesAn1') is-invalid @enderror" placeholder="No. BPJS Anak 1">
                                         @error('noBpjsKesAn1')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                 </div>
                             </div>
@@ -663,7 +681,7 @@
                                 <div class="col-sm-8">
                                     <input type="text" value="{{$karyawan->noBpjsKesAn2}}" name="noBpjsKesAn2" class="form-control @error('noBpjsKesAn2') is-invalid @enderror" placeholder="No. BPJS Anak 2">
                                         @error('noBpjsKesAn2')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                 </div>
                             </div>
@@ -672,13 +690,13 @@
                                 <div class="col-sm-8">
                                     <input type="text" value="{{$karyawan->noBpjsKesAn3}}" name="noBpjsKesAn3" class="form-control @error('noBpjsKesAn3') is-invalid @enderror" placeholder="No. BPJS Anak 3">
                                         @error('noBpjsKesAn3')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="row d-flex justify-content-end">

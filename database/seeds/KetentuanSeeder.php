@@ -182,5 +182,25 @@ class KetentuanSeeder extends Seeder
             'code'  => '2',
             'localizedName' => 'BRI'
         ]);
+        // Ketentuan::create([
+        //     'qualifier' => 'AREA',
+        //     'code'  => '1',
+        //     'localizedName' => 'Jakarta'
+        // ]);
+        // Ketentuan::create([
+        //     'qualifier' => 'AREA',
+        //     'code'  => '2',
+        //     'localizedName' => 'Depok'
+        // ]);
+        // Ketentuan::create([
+        //     'qualifier' => 'AREA',
+        //     'code'  => '3',
+        //     'localizedName' => 'Jakarta'
+        // ]);
+        // Ketentuan::create([
+        //     'qualifier' => 'AREA',
+        //     'code'  => 'Jakarta',
+        //     'localizedName' => 'Jakarta'
+        // ]);
     }
 }

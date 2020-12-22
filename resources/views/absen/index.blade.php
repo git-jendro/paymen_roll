@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Data Absensi')
+
 @section('content')
 <div class="container">
     <div class="mt-4">
@@ -54,7 +56,7 @@
     <div class="mt-4">
         <div class="d-flex">
             <div class="mr-auto p-2"><h5>Data Absensi</h5></div>
-            <div class="p-2"><a href="" class="btn btn-oval"><h5 style="margin-bottom: 0rem">Input Absen</h5></a></div>
+            <div class="p-2"><a href="/absen/create" class="btn btn-oval"><h5 style="margin-bottom: 0rem">Input Absen</h5></a></div>
             <div class="p-2"><a href="" class="btn btn-oval"><h5 style="margin-bottom: 0rem">Upload  Absen</h5></a></div>
         </div>
     </div>
@@ -65,7 +67,7 @@
             <table class="table table-borderless">
                 <thead>
                     <tr>
-                        <th scope="col">NO</th>
+                        <th scope="col">No.</th>
                         <th scope="col">NIP</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Masuk</th>

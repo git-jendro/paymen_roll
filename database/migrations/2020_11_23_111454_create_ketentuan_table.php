@@ -16,8 +16,9 @@ class CreateKetentuanTable extends Migration
         Schema::create('ketentuan', function (Blueprint $table) {
             $table->id();
             $table->string('qualifier', 100);
-            $table->integer('code');
+            $table->string('code');
             $table->string('localizedName', 100);
+            $table->integer('flagAttr1')->nullable();
             $table->timestamps();
         });
     }

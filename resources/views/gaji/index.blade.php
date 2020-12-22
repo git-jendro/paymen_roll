@@ -1,41 +1,43 @@
 @extends('layouts.app')
 
+@section('title', 'Data Gaji')
+
 @section('content')
 <div class="container">
     <div class="mt-4">
         <div class="card ">
-            <table class="table table-borderless">
+            <table class="table table-borderless mt-2">
                 <thead>
                     <tr>
-                        <th scope="col" colspan="6">Filter</th>
+                        <th scope="col" colspan="6" class="pl-2 pr-2">Filter</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
+                        <td class="pl-2 pr-2">
                             NIP
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             <input type="text" class="form-control" id="nip">
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             NIK
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             <input type="text" class="form-control" id="nip">
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="pl-2 pr-2">
                             Nama
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             <input type="text" class="form-control" id="nip">
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             Status
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             <select class="form-control" id="">
                                 <option value=""></option>
                                 <option value="">3</option>
@@ -63,56 +65,56 @@
             <table class="table table-borderless">
                 <thead>
                     <tr>
-                        <th scope="col">NIP</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Masuk</th>
-                        <th scope="col">Sakit</th>
-                        <th scope="col">Izin</th>
-                        <th scope="col">Cuti</th>
-                        <th scope="col">Alfa</th>
-                        <th scope="col">Lembur</th>
-                        <th scope="col">Total Gaji</th>
-                        <th scope="col">Status Hitung</th>
-                        <th scope="col">Status Bayar</th>
-                        <th class="text-center" scope="col" colspan="2">Action</th>
+                        <th scope="col" class="pl-2 pr-2">NIP</th>
+                        <th scope="col" class="pl-2 pr-2">Nama</th>
+                        <th scope="col" class="pl-2 pr-2">Masuk</th>
+                        <th scope="col" class="pl-2 pr-2">Sakit</th>
+                        <th scope="col" class="pl-2 pr-2">Izin</th>
+                        <th scope="col" class="pl-2 pr-2">Cuti</th>
+                        <th scope="col" class="pl-2 pr-2">Alfa</th>
+                        <th scope="col" class="pl-2 pr-2">Lembur</th>
+                        <th scope="col" class="pl-2 pr-2">Total Gaji</th>
+                        <th scope="col" class="pl-2 pr-2">Status Hitung</th>
+                        <th scope="col" class="pl-2 pr-2">Status Bayar</th>
+                        <th class="text-center pl-2 pr-2" scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
+                        <td class="pl-2 pr-2">
                             Mark
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             Otto
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             @mdo
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             Mark
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             Otto
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             @mdo
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             Otto
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             @mdo
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             Otto
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             @mdo
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             @mdo
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             <a href="/karyawan/edit">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -121,7 +123,7 @@
                                 </svg>
                             </a>
                         </td>
-                        <td>
+                        <td class="pl-2 pr-2">
                             <a href="/karyawan/show">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-square-fill"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">

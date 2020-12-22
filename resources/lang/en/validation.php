@@ -130,8 +130,266 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        // 'nip' => [
+        //     'required' => 'Haram mengisi kolom NIP !',
+        // ],
+        'nama' => [
+            'required' => 'Harap mengisi kolom  Nama !',
+        ],
+        'JK' => [
+            'required' => 'Harap Pilih Jenis Kelamin !'
+        ],
+        'tempatlahir' => [
+            'required' => 'Harap mengisi kolom Tempat Lahir !'
+        ],
+        'dob' => [
+            'required' => 'Harap mengisi kolom Tanggal Lahir !'
+        ],
+        'notel' => [
+            'required' => 'Harap mengisi kolom Nomor Telpon !',
+            'numeric' => 'Kolom Nomor Telpon hanya boleh diisi dengan angka !'
+        ],
+        'alamatktp' => [
+            'required' => 'Harap mengisi kolom Alamat KTP !',
+        ],
+        'alamatdom' => [
+            'required' => 'Harap mengisi kolom Alamat Domisili !'
+        ],
+        'email' => [
+            'required' => 'Harap mengisi kolom Email !',
+        ],
+        'noktp' => [
+            'required' => 'Harap mengisi kolom Nomor KTP !',
+            'numeric' => 'Kolom Nomor KTP hanya boleh diisi dengan angka !'
+        ],
+        'nokk' => [
+            'required' => 'Harap mengisi kolom Nomor KK !',
+            'numeric' => 'Kolom Nomor KK hanya boleh diisi dengan angka !'
+        ],
+        'npwp' => [
+            'required' => 'Harap mengisi kolom NPWP !',
+            'numeric' => 'Kolom NPWP hanya boleh diisi dengan angka !'
+        ],
+        'statusNikah' => [
+            'required' => 'Harap mengisi kolom Status Nikah !'
+        ],
+        'namaAyah' => [
+            'required' => 'Harap mengisi kolom Nama Ayah !'
+        ],
+        'namaIbu' => [
+            'required' => 'Harap mengisi kolom Nama Ibu !'
+        ],
+        'statusKerja' => [
+            'required' => 'Harap mengisi kolom Status Kerja !'
+        ],
+        'tipeumr' => [
+            'required' => 'Harap mengisi kolom Tipe UMR !'
+        ],
+        'noBpjsKet' => [
+            'required' => 'Harap mengisi kolom No. BPJS TK !',
+            'numeric' => 'Kolom No. BPJSTK hanya boleh diisi dengan angka !'
+        ],
+        'noBpjsKes' => [
+            'required' => 'Harap mengisi kolom No. BPJS KES !',
+            'numeric' => 'Kolom No. BPJS KES hanya boleh diisi dengan angka !'
+        ],
+        // 'noBpjsKesPas' => [
+        //     'required_if' => 'Harap mengisi kolom No. BPJS KES Pasangan ketika memilih status Menikah !!'
+        // ],
+        // 'namaPas' => [
+        //     'required_if' => 'Harap mengisi kolom Nama Pasangan ketika memilih status Menikah !'
+        // ],
+        // 'jkPas' => [
+        //     'required_if' => 'Harap mengisi kolom Jenis Kelamin Pasangan ketika memilih status Menikah !'
+        // ],
+        // 'noKtpPas' => [
+        //     'required_if' => 'Harap mengisi kolom No. KTP Pasangan ketika memilih status Menikah !'
+        // ],
+        // 'tempatLahirPas' => [
+        //     'required_if' => 'Harap mengisi kolom Tempat Lahir Pasangan ketika memilih status Menikah !'
+        // ],
+        // 'noBpjsKesAn1' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 1 !'
+        // ],
+        // 'namaAn1' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 1 !'
+        // ],
+        // 'jkAn1' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 1 !'
+        // ],
+        // 'tempatLahirAn1' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 1 !'
+        // ],
+        // 'dobAn1' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 1 !'
+        // ],
+        // 'namaAn2' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 2 !'
+        // ],
+        // 'noBpjsKesAn2' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 2 !'
+        // ],
+        // 'jkAn2' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 2 !'
+        // ],
+        // 'tempatLahirAn2' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 2 !'
+        // ],
+        // 'dobAn2' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 2 !'
+        // ],
+        // 'namaAn3' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 3 !'
+        // ],
+        // 'noBpjsKesAn3' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 3 !'
+        // ],
+        // 'jkAn3' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 3 !'
+        // ],
+        // 'tempatLahirAn3' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 3 !'
+        // ],
+        // 'dobAn3' => [
+        //     'required_with' => 'Harap mengisi mengisikan data diri Anak 3 !'
+        // ],
+        'namaBank' => [
+            'required' => 'Harap mengisi kolom Nama Bank !'
+        ],
+        'atasNama' => [
+            'required' => 'Harap mengisi kolom Atas Nama !'
+        ],
+        'cabang' => [
+            'required' => 'Harap mengisi kolom Cabang !'
+        ],
+        'noRek' => [
+            'required' => 'Harap mengisi kolom Nomor Rekening !',
+            'numeric' => 'Kolom Nomor Rekening hanya boleh diisi dengan angka !'
+        ],
+        'PendidikanTerakhir' => [
+            'required' => 'Harap mengisi kolom Pendidikan Terakhir !'
+        ],
+        'ipk' => [
+            'required' => 'Harap mengisi kolom IPK !'
+        ],
+        'tahunLulus' => [
+            'required' => 'Harap mengisi kolom Tahun Lulus !',
+            'numeric' => 'Kolom Tahun Lulus hanya boleh diisi dengan angka untuk format Tahun !'
+        ],
+        'statusPendidikan' => [
+            'required' => 'Harap mengisi kolom Status Pendidikan !'
+        ],
+        'jabatan' => [
+            'required' => 'Harap mengisi kolom Jabatan !'
+        ],
+        'divisi' => [
+            'required' => 'Harap mengisi kolom Divisi !'
+        ],
+        'penempatan' => [
+            'required' => 'Harap mengisi kolom Penempatan !'
+        ],
+        'tanggalMasuk' => [
+            'required' => 'Harap mengisi kolom Tanggal Masuk !'
+        ],
+        'noPkwt' => [
+            'required' => 'Harap mengisi kolom No. PKWT !',
+            'numeric' => 'Kolom No. PKWT hanya boleh diisi dengan angka !'
+        ],
+        'berakhir' => [
+            'required' => 'Harap mengisi kolom Tanggal Berakhir !'
+        ],
+        'mulai' => [
+            'required' => 'Harap mengisi kolom Tanggal Mulai !'
+        ],
+        'lembur' => [
+            'required' => 'Harap mengisi kolom Ketentuan Lembur !'
+        ],
+        'insentif' => [
+            'required' => 'Harap mengisi kolom Tarif Insentif !'
+        ],
+        'bpjsTK' => [
+            'required' => 'Harap mengisi kolom Ketentuan BPJS TK !'
+        ],
+        'bpjsKes' => [
+            'required' => 'Harap mengisi kolom Ketentuan BPJS KES !'
+        ],
+        'bpjsJp' => [
+            'required' => 'Harap mengisi kolom Ketentuan BPJS JP !'
+        ],
+        'TotalHari' => [
+            'required' => 'Harap mengisi kolom Jumlah Hari Kerja !'
+        ],
+        'namapotongan1' => [
+            'required' => 'Harap mengisi kolom Nama Potongan 1 !'
+        ],
+        'potongan1' => [
+            'required' => 'Harap mengisi kolom Jumlah Potongan 1 !'
+        ],
+        'namapotongan2' => [
+            'required' => 'Harap mengisi kolom Nama Potongan 2 !'
+        ],
+        'potongan2' => [
+            'required' => 'Harap mengisi kolom Jumlah Potongan 2 !'
+        ],
+        'area1' => [
+            'required' => 'Harap Pilih Area UMR 1 !'
+        ],
+        'umr1' => [
+            'required' => 'Harap mengisi kolom Jumlah UMR 1 !'
+        ],
+        'area2' => [
+            'required' => 'Harap Pilih Area UMR 2 !'
+        ],
+        'umr2' => [
+            'required' => 'Harap mengisi kolom Jumlah UMR 2 !'
+        ],
+        'area3' => [
+            'required' => 'Harap Pilih Area UMR 3 !'
+        ],
+        'umr3' => [
+            'required' => 'Harap mengisi kolom Jumlah UMR 3 !'
+        ],
+        'area4' => [
+            'required' => 'Harap Pilih Area UMR 4 !'
+        ],
+        'umr4' => [
+            'required' => 'Harap mengisi kolom Jumlah UMR 4 !'
+        ],
+        'area5' => [
+            'required' => 'Harap Pilih Area UMR 5 !'
+        ],
+        'umr5' => [
+            'required' => 'Harap mengisi kolom Jumlah UMR 5 !'
+        ],
+        'area6' => [
+            'required' => 'Harap Pilih Area UMR 6 !'
+        ],
+        'umr6' => [
+            'required' => 'Harap mengisi kolom Jumlah UMR 6 !'
+        ],
+        'area7' => [
+            'required' => 'Harap Pilih Area UMR 7 !'
+        ],
+        'umr7' => [
+            'required' => 'Harap mengisi kolom Jumlah UMR 7 !'
+        ],
+        'area8' => [
+            'required' => 'Harap Pilih Area UMR 8 !'
+        ],
+        'umr8' => [
+            'required' => 'Harap mengisi kolom Jumlah UMR 8 !'
+        ],
+        'area9' => [
+            'required' => 'Harap Pilih Area UMR 9 !'
+        ],
+        'umr9' => [
+            'required' => 'Harap mengisi kolom Jumlah UMR 9 !'
+        ],
+        'area10' => [
+            'required' => 'Harap Pilih Area UMR 10 !'
+        ],
+        'umr10' => [
+            'required' => 'Harap mengisi kolom Jumlah UMR 10 !'
         ],
     ],
 
