@@ -22,7 +22,7 @@ class AbsenController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {        
         return view('/absen/index');
     }
 
@@ -33,7 +33,8 @@ class AbsenController extends Controller
      */
     public function create()
     {
-        return view('/absen/create');
+        $absen = $this->absensi_get();
+        return view('/absen/create', compact('absen'));
     }
 
     /**
@@ -42,9 +43,10 @@ class AbsenController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    // public function store(Request $request)
+    public function store($id, $absen)
     {
-        //
+        return response()->json();
     }
 
     /**
@@ -90,5 +92,12 @@ class AbsenController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function get()
+    {
+        $absen = $this->absensi_get();
+
+        return response()->json($absen);
     }
 }

@@ -15,25 +15,25 @@ class CreateAbsensiGajiTable extends Migration
     {
         Schema::create('absensi_gaji', function (Blueprint $table) {
             $table->id();
-            $table->string('nip', 50);
-            $table->integer('jmlMasuk');
-            $table->integer('jmlSakit');
-            $table->integer('jmlIzin');
-            $table->integer('jmlCuti');
-            $table->integer('jmlLibur');
-            $table->integer('TotalHari');
-            $table->integer('jmlLembur');
-            $table->integer('gajiPokok');
-            $table->integer('lembur');
-            $table->integer('insentif');
-            $table->integer('bpjsTK');
-            $table->integer('bpjsKes');
-            $table->integer('bpjsJp');
-            $table->integer('gajiKotor');
-            $table->integer('totalPotongan');
-            $table->integer('gajiBersih');
-            $table->integer('isHitung');
-            $table->integer('Isbayar');
+            $table->string('nip', 50)->nullable();
+            $table->integer('jmlMasuk')->nullable();
+            $table->integer('jmlSakit')->nullable();
+            $table->integer('jmlIzin')->nullable();
+            $table->integer('jmlCuti')->nullable();
+            $table->integer('jmlLibur')->nullable();
+            $table->integer('TotalHari')->nullable();
+            $table->integer('jmlLembur')->nullable();
+            $table->integer('gajiPokok')->nullable();
+            $table->integer('lembur')->nullable();
+            $table->integer('insentif')->nullable();
+            $table->integer('bpjsTK')->nullable();
+            $table->integer('bpjsKes')->nullable();
+            $table->integer('bpjsJp')->nullable();
+            $table->integer('gajiKotor')->nullable();
+            $table->integer('totalPotongan')->nullable();
+            $table->integer('gajiBersih')->nullable();
+            $table->integer('isHitung')->nullable();
+            $table->integer('Isbayar')->nullable();
             $table->timestamps();
         });
     }

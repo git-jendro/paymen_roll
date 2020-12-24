@@ -14,7 +14,7 @@
     </div>
 </div>
 <div class="container">
-    <form action="/karyawan/{{$karyawan->id}}" method="POST" enctype="multipart/form-data">
+    <form action="/karyawan/{{$karyawan->nip}}" method="POST" enctype="multipart/form-data">
         @method('patch')
         @csrf
         <div class="row mt-4 ml-1">

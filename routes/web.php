@@ -30,10 +30,10 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/karyawan', 'KaryawanController@index');
 Route::get('/karyawan/create', 'KaryawanController@create');
 Route::post('/karyawan/store', 'KaryawanController@store');
-Route::get('/karyawan/{id}', 'KaryawanController@show');
-Route::get('/karyawan/{id}/edit', 'KaryawanController@edit');
-Route::patch('/karyawan/{id}', 'KaryawanController@update');
-Route::get('/karyawan/{id}/delete', 'KaryawanController@destroy');
+Route::get('/karyawan/{nip}', 'KaryawanController@show');
+Route::get('/karyawan/{nip}/edit', 'KaryawanController@edit');
+Route::patch('/karyawan/{nip}', 'KaryawanController@update');
+Route::get('/karyawan/{nip}/delete', 'KaryawanController@destroy');
 
 //Route Gaji
 Route::get('/gaji', 'GajiController@index');
@@ -46,6 +46,8 @@ Route::post('/gaji/store', 'GajiController@store');
 Route::get('/absen', 'AbsenController@index');
 Route::get('/absen/create', 'AbsenController@create');
 Route::get('/absen/edit', 'AbsenController@edit');
+Route::get('/absen/get', 'AbsenController@get');
+Route::get('/absen/store/{id}/{absen}', 'AbsenController@store');
 
 //Route Laporan
 Route::get('/laporan', 'LaporanController@index');

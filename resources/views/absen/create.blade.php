@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Tambah Absensi')
+
 @section('content')
 <div class="container">
     <div class="mt-4">
@@ -31,6 +33,12 @@
                         </div>
                         <div class="auto text-center">
                             <table class="table table-bordered" id="table">
+                                <thead id="thead">
+
+                                </thead>
+                                <tbody id="body">
+                                    <input type="text" name="nip" class="form-control">
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -47,8 +55,24 @@
         </div>
     </form>
 </div>
+<style>
+    body {
+        counter-reset: Serial;
+        /* Set the Serial counter to 0 */
+    }
+    table {
+        border-collapse: separate;
+    }
+    tr td:first-child:before {
+        counter-increment: Serial;
+        /* Increment the Serial counter */
+        content: counter(Serial);
+        /* Display the counter */
+    }
+</style>
 <script>
     $(document).ready(function(){
+
         var month = new Array();
         month[0] = "January";
         month[1] = "February";
@@ -72,11 +96,36 @@
             return new Date(y, t, 0).getDate();
         }
         document.getElementById("bulan").innerHTML = m;
-        $('#table').append('<thead><tr><th rowspan="2" class="pb-4">No.</th><th rowspan="2" class="pb-4">No. Pegawai</th><th colspan="'+daysInMonth (t, y)+'">Tanggal</th></tr><tr id="tgl"></tr></thead><tbody><tr id="cek"><td>1</td><td>Nama</td></tr></tbody>');
+        $('#thead').append('<tr><th rowspan="2" class="pb-4">No.</th><th rowspan="2" class="pb-4">No. Pegawai</th><th colspan="'+daysInMonth (t, y)+'">Tanggal</th></tr><tr id="tgl"></tr>');
         for (let i = 1; i <= daysInMonth (t, y); i++) {
-            $('#tgl').append('<td>'+i+'</td>');
-            $('#cek').append('<td><input type=checkbox name="check" id="check"></td>');
+            $('#tgl').append('<th>'+i+'</th>');
         }
+        $.ajax({
+            type : 'GET',
+            url : 'http://localhost:8000/absen/get/',
+            success : function (res) {
+                $.each(res, function (i, item) {
+                    try {
+                        $('#body').append('<tr id="cek'+i+'"><td style="width:2%;"></td><td style="width:15%"><input type="text" name="nip('+i+')[]" class="form-control" value="'+item.nip+'" readonly id="nip('+item.nip+')"></td></tr>')
+                        for (let x = 1; x <= daysInMonth (t, y); x++) {
+                            $('#cek'+i).append('<td style="width:2.25%;"><input type="text" name="absen[]" class="form-control text-center absen'+item.id+'" onkeyup="absen('+item.id+')" style="padding:0.3rem"></td>');
+                        }
+                    } catch (error) {
+                        console.log(error);
+                    }
+                })
+            }
+        })
     });
+
+    function absen(id) {
+        var inputs = document.getElementsByClassName( 'absen'+id ),
+        names  = [].map.call(inputs, function( input ) {
+            return input.value;
+        });
+        console.log(names);
+        
+    }
+    
 </script>
 @endsection

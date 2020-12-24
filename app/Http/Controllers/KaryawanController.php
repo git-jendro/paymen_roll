@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\AbsensiGaji;
 use App\Karyawan;
-use App\Ketentuan;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
-use Illuminate\Validation\Rule;
 
 class KaryawanController extends Controller
 {
@@ -52,8 +51,50 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        $karyawan = Karyawan::create($this->validateRequest());
-        $this->nip($karyawan);
+        $this->validateRequest();
+        // $karyawan = Karyawan::create($this->validateRequest());
+        // $this->nip($karyawan);
+        $nip = IdGenerator::generate(['table' => 'karyawan', 'field' => 'nip', 'length' => 15, 'prefix' =>'AK-INBOUND-']);
+        Karyawan::create([
+            'nip' => $nip,
+            'nama' => $request->nama,
+            'JK' => $request->JK,
+            'tempatlahir' => $request->tempatlahir,
+            'dob' => $request->dob,
+            'notel' => $request->notel,
+            'alamatktp' => $request->alamatktp,
+            'alamatdom' => $request->alamatdom,
+            'email' => $request->email,
+            'noktp' => $request->noktp,
+            'nokk' => $request->nokk,
+            'npwp' => $request->npwp,
+            'statusNikah' => $request->statusNikah,
+            'namaAyah' => $request->namaAyah,
+            'namaIbu' => $request->namaIbu,
+            'statusKerja' => $request->statusKerja,
+            'tipeumr' => $request->tipeumr,
+            'noBpjsKet' => $request->noBpjsKet,
+            'noBpjsKes' => $request->noBpjsKes,
+            'namaBank' => $request->namaBank,
+            'atasNama' => $request->atasNama,
+            'cabang' => $request->cabang,
+            'noRek' => $request->noRek,
+            'PendidikanTerakhir' => $request->PendidikanTerakhir,
+            'ipk' => $request->ipk,
+            'tahunLulus' => $request->tahunLulus,
+            'statusPendidikan' => $request->statusPendidikan,
+            'jabatan' => $request->jabatan,
+            'divisi' => $request->divisi,
+            'penempatan' => $request->penempatan,
+            'tanggalMasuk' => $request->tanggalMasuk,
+            'noPkwt' => $request->noPkwt,
+            'berakhir' => $request->berakhir,
+            'mulai' => $request->mulai,
+        ]);
+
+        $absen = new AbsensiGaji;
+        $absen->nip = $nip;
+        $absen->save();
 
         return redirect()->action('KaryawanController@index')->with('store', 'Data karyawan berhasil ditambah');
     }
@@ -93,9 +134,45 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $karyawan = $this->karyawan_first($id)->first();
-        $karyawan->update($this->validateRequest());
-        $this->nip($karyawan);
+        $this->validateRequest();
+        $this->karyawan_first($id)
+        ->update([
+            'nip' => $request->nip,
+            'nama' => $request->nama,
+            'JK' => $request->JK,
+            'tempatlahir' => $request->tempatlahir,
+            'dob' => $request->dob,
+            'notel' => $request->notel,
+            'alamatktp' => $request->alamatktp,
+            'alamatdom' => $request->alamatdom,
+            'email' => $request->email,
+            'noktp' => $request->noktp,
+            'nokk' => $request->nokk,
+            'npwp' => $request->npwp,
+            'statusNikah' => $request->statusNikah,
+            'namaAyah' => $request->namaAyah,
+            'namaIbu' => $request->namaIbu,
+            'statusKerja' => $request->statusKerja,
+            'tipeumr' => $request->tipeumr,
+            'noBpjsKet' => $request->noBpjsKet,
+            'noBpjsKes' => $request->noBpjsKes,
+            'namaBank' => $request->namaBank,
+            'atasNama' => $request->atasNama,
+            'cabang' => $request->cabang,
+            'noRek' => $request->noRek,
+            'PendidikanTerakhir' => $request->PendidikanTerakhir,
+            'ipk' => $request->ipk,
+            'tahunLulus' => $request->tahunLulus,
+            'statusPendidikan' => $request->statusPendidikan,
+            'jabatan' => $request->jabatan,
+            'divisi' => $request->divisi,
+            'penempatan' => $request->penempatan,
+            'tanggalMasuk' => $request->tanggalMasuk,
+            'noPkwt' => $request->noPkwt,
+            'berakhir' => $request->berakhir,
+            'mulai' => $request->mulai,
+        ]);
+        // $this->nip($karyawan);
         
         return redirect()->action('KaryawanController@index')->with('update', 'Data karyawan berhasil diupdate');
     }
@@ -106,9 +183,10 @@ class KaryawanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($nip)
     {
-        Karyawan::destroy($id);
+        AbsensiGaji::where('nip', $nip)->delete();
+        $this->karyawan_first($nip)->delete();
 
         return redirect()->action('KaryawanController@index')->with('delete', 'Data karyawan berhasil dihapus');
     }
@@ -180,16 +258,16 @@ class KaryawanController extends Controller
             );
     }
 
-    public function nip($karyawan)
-    {
-        if (request()->has('nip')) {
-            $karyawan->update([
-                'nip' => request()->nip
-            ]);
-        }else {
-            $karyawan->update([
-                'nip' => IdGenerator::generate(['table' => 'karyawan', 'field' => 'nip', 'length' => 15, 'prefix' =>'AK-INBOUND-'])
-            ]);
-        }
-    }
+    // public function nip($karyawan)
+    // {
+    //     if (request()->has('nip')) {
+    //         $karyawan->update([
+    //             'nip' => request()->nip
+    //         ]);
+    //     }else {
+    //         $karyawan->update([
+    //             'nip' => IdGenerator::generate(['table' => 'karyawan', 'field' => 'nip', 'length' => 15, 'prefix' =>'AK-INBOUND-'])
+    //         ]);
+    //     }
+    // }
 }

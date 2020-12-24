@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AbsensiGaji;
 use App\Karyawan;
 use App\Ketentuan;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -27,8 +28,20 @@ class Controller extends BaseController
     }
     public function karyawan_first($id)
     {
-        $karyawan = Karyawan::where('id', $id);
+        $karyawan = Karyawan::where('nip', $id);
 
         return $karyawan;
+    }
+    public function absensi_get()
+    {
+        $absensi = AbsensiGaji::all();
+
+        return $absensi;
+    }
+    public function absensi_first($id)
+    {
+        $absensi = AbsensiGaji::where('id', $id);
+
+        return $absensi;
     }
 }

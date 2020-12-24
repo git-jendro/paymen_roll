@@ -13,39 +13,39 @@
         </div>
     </div>
     <div class="mt-4">
-        <div class="card ">
+        <div class="card">
             <table class="table table-borderless">
                 <thead>
                     <tr>
-                        <th scope="col" colspan="6">Filter</th>
+                        <th scope="col" colspan="6" class="pl-3 pr-3 py-2">Filter</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     <tr>
-                        <td>
+                        <th class="pl-3 pr-3">
                             NIP
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="nip">
-                        </td>
-                        <td>
+                        </th>
+                        <th style="width: 30%" class="pl-3 pr-3">
+                            <input type="text" class="form-control" id="nip" >
+                        </th>
+                        <th class="pl-3 pr-3">
                             Status
-                        </td>
-                        <td>
+                        </th>
+                        <th class="pl-3 pr-3">
                             <select class="form-control" id="" style="width: 100%">
                                 <option value=""></option>
                                 <option value="">3</option>
                                 <option value="">2</option>
                             </select>
-                        </td>
+                        </th>
                     </tr>
                     <tr>
-                        <td>
+                        <th class="pl-3 pr-3">
                             Nama
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="nip">
-                        </td>
+                        </th>
+                        <th style="width: 30%" class="pl-3 pr-3">
+                            <input type="text" class="form-control" id="nip" >
+                        </th>
                     </tr>
                 </tbody>
             </table>
@@ -138,3 +138,18 @@
     </div>
 </div>
 @endsection
+<style>
+    body {
+        counter-reset: Serial;
+        /* Set the Serial counter to 0 */
+    }
+    table {
+        border-collapse: separate;
+    }
+    tr td:first-child:before {
+        counter-increment: Serial;
+        /* Increment the Serial counter */
+        content: counter(Serial);
+        /* Display the counter */
+    }
+</style>

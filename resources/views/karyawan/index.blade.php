@@ -14,22 +14,22 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="pl-2 pr-2">
+                        <th class="pl-2 pr-2">
                             NIP
-                        </td>
-                        <td class="pl-2 pr-2">
+                        </th>
+                        <th class="pl-2 pr-2">
                             <input type="text" class="form-control" id="nip">
-                        </td>
-                        <td class="pl-2 pr-2">
+                        </th>
+                        <th class="pl-2 pr-2">
                             NIK
-                        </td>
-                        <td class="pl-2 pr-2">
+                        </th>
+                        <th class="pl-2 pr-2">
                             <input type="text" class="form-control" id="nip">
-                        </td>
-                        <td class="pl-2 pr-2">
+                        </th>
+                        <th class="pl-2 pr-2">
                             Tipe Karyawan
-                        </td>
-                        <td class="pl-2 pr-2">
+                        </th>
+                        <th class="pl-2 pr-2">
                             <select class="form-control" id="">
                                 <option value="">Pilih Tipe Karyawan</option>
                                 @foreach ($ketentuan as $item)
@@ -38,19 +38,19 @@
                                 @endif
                                 @endforeach
                             </select>
-                        </td>
+                        </th>
                     </tr>
                     <tr>
-                        <td class="pl-2 pr-2">
+                        <th class="pl-2 pr-2">
                             Nama
-                        </td>
-                        <td class="pl-2 pr-2">
+                        </th>
+                        <th class="pl-2 pr-2">
                             <input type="text" class="form-control" id="nip">
-                        </td>
-                        <td class="pl-2 pr-2">
+                        </th>
+                        <th class="pl-2 pr-2">
                             Status
-                        </td>
-                        <td class="pl-2 pr-2">
+                        </th>
+                        <th class="pl-2 pr-2">
                             <select class="form-control" id="">
                                 <option value="">Pilih Status Karyawan</option>
                                 @foreach ($ketentuan as $item)
@@ -59,11 +59,11 @@
                                 @endif
                                 @endforeach
                             </select>
-                        </td>
-                        <td class="pl-2 pr-2">
+                        </th>
+                        <th class="pl-2 pr-2">
                             Jenis Kelamin
-                        </td>
-                        <td class="pl-2 pr-2">
+                        </th>
+                        <th class="pl-2 pr-2">
                             <select class="form-control" id="">
                                 <option value="">Pilih Jenis Kelamin</option>
                                 @foreach ($ketentuan as $item)
@@ -72,7 +72,7 @@
                                 @endif
                                 @endforeach
                             </select>
-                        </td>
+                        </th>
                     </tr>
                 </tbody>
             </table>
@@ -154,7 +154,7 @@
                             @endforeach
                         </td>
                         <td class="pl-2 pr-2">
-                            <a href="/karyawan/{{$item->id}}">
+                            <a href="/karyawan/{{$item->nip}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                                     <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
                                     <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
@@ -162,7 +162,7 @@
                             </a>
                         </td>
                         <td class="pl-2 pr-2">
-                            <a href="/karyawan/{{$item->id}}/edit">
+                            <a href="/karyawan/{{$item->nip}}/edit">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
@@ -171,7 +171,7 @@
                             </a>
                         </td>
                         <td class="pl-2 pr-2">
-                            <a href="/karyawan/{{$item->id}}/delete">
+                            <a href="/karyawan/{{$item->nip}}/delete">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-square-fill"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
