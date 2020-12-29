@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Absen;
+use App\AbsensiGaji;
 use Illuminate\Http\Request;
 
 class AbsenController extends Controller
@@ -33,7 +35,11 @@ class AbsenController extends Controller
      */
     public function create()
     {
+        $carbon = $this->carbon();
         $absen = $this->absensi_get();
+        $a = Absen::all();
+        $b = AbsensiGaji::find(4)->data;
+        // dd($b);
         return view('/absen/create', compact('absen'));
     }
 
@@ -44,9 +50,36 @@ class AbsenController extends Controller
      * @return \Illuminate\Http\Response
      */
     // public function store(Request $request)
-    public function store($id, $absen)
+    public function store($id, $m, $s, $i, $c,$l, $total, $data, $index)
     {
-        return response()->json();
+        $carbon = $this->carbon();
+        if (Absen::where('month', $carbon->monthName)->count() == 0 || Absen::where('absensi_gaji_id', $id)->count() == 0) {
+            for ($i=0; $i < $carbon->daysInMonth; $i++) { 
+                $absen = new Absen;
+                $absen->absensi_gaji_id = $id;
+                $absen->month = $carbon->monthName;
+                $absen->daysamonth = $carbon->daysInMonth;
+                $absen->data = '';
+                $absen->save();
+            }
+        }
+
+        $item = Absen::find($index);
+        $item->data = $data;
+        $item->save();
+
+        $absen = AbsensiGaji::find($id);
+        $absen->jmlMasuk = $m;
+        $absen->jmlSakit = $s;
+        $absen->jmlIzin = $i;
+        $absen->jmlCuti = $c;
+        $absen->jmlLibur = $l;
+        $absen->totalHari = $total;
+        $absen->save();
+        
+        return response()->json($item);
+
+
     }
 
     /**
@@ -97,7 +130,11 @@ class AbsenController extends Controller
     public function get()
     {
         $absen = $this->absensi_get();
+        $data = $this->absen();
 
-        return response()->json($absen);
+        return response()->json([
+            'absen' => $absen,
+            'data' => $data
+        ]);
     }
 }

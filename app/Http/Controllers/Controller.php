@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Absen;
 use App\AbsensiGaji;
 use App\Karyawan;
 use App\Ketentuan;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -43,5 +45,18 @@ class Controller extends BaseController
         $absensi = AbsensiGaji::where('id', $id);
 
         return $absensi;
+    }
+    public function carbon()
+    {
+        $carbon = Carbon::now();
+
+        return $carbon;
+    }
+
+    public function absen()
+    {
+        $absen = Absen::get();
+
+        return $absen;
     }
 }

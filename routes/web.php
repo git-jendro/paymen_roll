@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('gaji/invoice', function () {
-    return view('/gaji/invoice');
+    // return view('/gaji/invoice');
 
-    // $pdf = PDF::loadView('gaji/invoice');
-    // return $pdf->download('gaji/invoice.pdf');
+//     $pdf = PDF::loadView('gaji/invoice');
+//     return $pdf->download('gaji/invoice.pdf');
 });
 
 
@@ -47,7 +47,7 @@ Route::get('/absen', 'AbsenController@index');
 Route::get('/absen/create', 'AbsenController@create');
 Route::get('/absen/edit', 'AbsenController@edit');
 Route::get('/absen/get', 'AbsenController@get');
-Route::get('/absen/store/{id}/{absen}', 'AbsenController@store');
+Route::get('/absen/store/{id}/{m}/{s}/{i}/{c}/{l}/{total}/{names}/{index}', 'AbsenController@store');
 
 //Route Laporan
 Route::get('/laporan', 'LaporanController@index');

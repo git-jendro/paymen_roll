@@ -29,6 +29,7 @@
                                     </select> --}}
                                     <label class="col-sm-4 col-form-label" id="bulan"></label>
                                 </div>
+                                <label style="font-size: 0.7rem; color: #636262">*Masukan data sesuai dengan ketentuan (M = Masuk, S = Sakit, I = Izin) !</label>
                             </div>
                         </div>
                         <div class="auto text-center">
@@ -37,7 +38,6 @@
 
                                 </thead>
                                 <tbody id="body">
-                                    <input type="text" name="nip" class="form-control">
                                 </tbody>
                             </table>
                         </div>
@@ -49,9 +49,9 @@
             <div class="col-md-2 py-4 ml-2 text-right" style="padding-right:0px">
                 <a href="{{url()->previous()}}" class="btn btn-danger" style="width: 80%">Batal</a>
             </div>
-            <div class="col-md-2 py-4 text-center" style="padding-left:0px">
+            {{-- <div class="col-md-2 py-4 text-center" style="padding-left:0px">
                 <button type="submit" class="btn btn-primary" style="width: 80%">Submit</button>
-            </div>
+            </div> --}}
         </div>
     </form>
 </div>
@@ -95,6 +95,7 @@
         function daysInMonth (t, y) {
             return new Date(y, t, 0).getDate();
         }
+
         document.getElementById("bulan").innerHTML = m;
         $('#thead').append('<tr><th rowspan="2" class="pb-4">No.</th><th rowspan="2" class="pb-4">No. Pegawai</th><th colspan="'+daysInMonth (t, y)+'">Tanggal</th></tr><tr id="tgl"></tr>');
         for (let i = 1; i <= daysInMonth (t, y); i++) {
@@ -104,12 +105,18 @@
             type : 'GET',
             url : 'http://localhost:8000/absen/get/',
             success : function (res) {
-                $.each(res, function (i, item) {
+                $.each(res.absen, function (i, item) {
                     try {
                         $('#body').append('<tr id="cek'+i+'"><td style="width:2%;"></td><td style="width:15%"><input type="text" name="nip('+i+')[]" class="form-control" value="'+item.nip+'" readonly id="nip('+item.nip+')"></td></tr>')
-                        for (let x = 1; x <= daysInMonth (t, y); x++) {
-                            $('#cek'+i).append('<td style="width:2.25%;"><input type="text" name="absen[]" class="form-control text-center absen'+item.id+'" onkeyup="absen('+item.id+')" style="padding:0.3rem"></td>');
-                        }
+                        $.each(res.data, function (x, val) {
+                            try {
+                                if (item.id == val.absensi_gaji_id) {
+                                    $('#cek'+i).append('<td style="width:2.25%;"><input type="text" name="absen[]" value="'+val.data+'" class="form-control text-center absen'+item.id+'" id="absen'+val.id+'" onkeyup="absen('+item.id+','+val.id+')" style="padding:0.3rem;text-transform: uppercase;"></td>');
+                                }
+                            } catch (error) {
+                                
+                            }
+                        })
                     } catch (error) {
                         console.log(error);
                     }
@@ -118,13 +125,48 @@
         })
     });
 
-    function absen(id) {
+    function absen(id,index) {
         var inputs = document.getElementsByClassName( 'absen'+id ),
         names  = [].map.call(inputs, function( input ) {
-            return input.value;
+            return input.value.toUpperCase();
         });
-        console.log(names);
-        
+        var data = $('#absen'+index).val().toUpperCase();
+        var val = names.map(function(word){
+                if (word.length > 1) {
+                    alert("Hanya boleh memasukan 1 huruh dalam 1 kolom ! \nHarap untuk mengisi form dengan benar !");
+                    return false;
+                }
+        })
+        var count = {};
+        names.forEach(function(i) { count[i] = (count[i]||0) + 1;});
+        var m = count.M;
+        var s = count.S;
+        var i = count.I;
+        var c = count.C;
+        var l = count.L;
+        var total = names.length;
+        if (count.M == null) {
+            var m = 0; 
+        }
+        if (count.S == null) {
+            var s = 0;
+        }
+        if (count.I == null) {
+            var i = 0; 
+        }
+        if (count.C == null) {
+            var c = 0; 
+        }
+        if (count.L == null) {
+            var l = 0; 
+        }
+        $.ajax({
+            type : 'GET',
+            url : 'http://localhost:8000/absen/store/'+id+'/'+m+'/'+s+'/'+i+'/'+c+'/'+l+'/'+total+'/'+data+'/'+index,
+            success : function (res) {
+                console.log(res);
+            }
+        })
     }
     
 </script>

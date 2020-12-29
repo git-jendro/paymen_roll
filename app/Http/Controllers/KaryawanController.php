@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Absen;
 use App\AbsensiGaji;
 use App\Karyawan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
@@ -95,6 +97,11 @@ class KaryawanController extends Controller
         $absen = new AbsensiGaji;
         $absen->nip = $nip;
         $absen->save();
+
+        
+        if (Absen::where('month', Carbon::now()->month)->count() == 0) {
+            
+        }
 
         return redirect()->action('KaryawanController@index')->with('store', 'Data karyawan berhasil ditambah');
     }

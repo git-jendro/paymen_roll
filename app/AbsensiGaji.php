@@ -10,8 +10,15 @@ class AbsensiGaji extends Model
 
     protected $guard = 'id';
 
+    protected $primaryKey = 'id';
+
     public function karyawan()
     {
         return $this->hasOne(Karyawan::class, 'nip', 'nip');
+    }
+
+    public function data()
+    {
+        return $this->hasMany('App\Absen', 'absensi_gaji_id');
     }
 }
