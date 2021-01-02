@@ -151,14 +151,10 @@
                             <div class="form-inline my-2">
                                 <label class="col-sm-2 col-form-label" style="padding: 0rem">UMR 1</label>
                                 <div class="col-sm-5">
-                                    <select name="area1" class="form-control  @error('area1') is-invalid @enderror" style="width: 100%">
-                                        <option value="">Pilih Area</option>
-                                        <option value="Jakarta">Jakarta</option>
-                                        <option value="Depok">Depok</option>
-                                    </select>
+                                    <input type="text" name="area1" class="form-control  @error('area1') is-invalid @enderror" placeholder="Area UMR 1">
                                     @error('area1')
                                         <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                    @enderror
                                 </div>
                                 <div class="col-sm-5 input-group">
                                     <div class="input-group-prepend">
@@ -173,11 +169,7 @@
                             <div class="form-inline my-2">
                                 <label class="col-sm-2 col-form-label" style="padding: 0rem">UMR 2</label>
                                 <div class="col-sm-5">
-                                    <select name="area2" class="form-control  @error('area2') is-invalid @enderror" style="width: 100%">
-                                        <option value="">Pilih Area</option>
-                                        <option value="Jakarta">Jakarta</option>
-                                        <option value="Depok">Depok</option>
-                                    </select>
+                                    <input type="text" name="area2" class="form-control  @error('area2') is-invalid @enderror" placeholder="Area UMR 2">
                                     @error('area2')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror 
@@ -190,56 +182,6 @@
                                     @error('umr2')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
-                                </div>
-                                <div id="errors">
-                                    @error('area3')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    @error('umr3')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    @error('area4')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    @error('umr4')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    @error('area5')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    @error('umr5')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    @error('area6')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    @error('umr6')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    @error('area7')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    @error('umr7')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    @error('area8')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    @error('umr8')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    @error('area9')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    @error('umr9')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    @error('area10')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    @error('umr10')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -285,7 +227,7 @@
             //Check maximum number of input fields
             if(x < maxField){ 
                 x++; //Increment field counter
-                $(wrapper).append('<div class="form-inline my-2" id="div"><label class="col-sm-2 col-form-label" style="padding: 0rem">UMR '+x+'</label><div class="col-sm-5"><select name="area'+x+'" class="form-control  @error('area+x') is-invalid @enderror" style="width: 100%"><option value="">Pilih Area</option><option value="Jakarta">Jakarta</option><option value="Depok">Depok</option></select>@error('area+x')<div class="invalid-feedback">{{ $message }}</div>@enderror</div><div class="col-sm-5 input-group"><div class="input-group-prepend"><div class="input-group-text">Rp</div></div><input type="text" placeholder="Jumlah UMR '+x+'" name="umr'+x+'" class="form-control  @error('umr+x') is-invalid @enderror">@error('umr+x')<div class="invalid-feedback">{{ $message }}</div>@enderror</div></div>'); //Add field html
+                $(wrapper).append('<div class="form-inline my-2" id="div"><label class="col-sm-2 col-form-label" style="padding: 0rem">UMR '+x+'</label><div class="col-sm-5"><input type="text" name="area'+x+'" class="form-control" placeholder="Area UMR '+x+'"></div><div class="col-sm-5 input-group"><div class="input-group-prepend"><div class="input-group-text">Rp</div></div><input type="text" placeholder="Jumlah UMR '+x+'" name="umr'+x+'" class="form-control"></div></div>'); //Add field html
             }
         });
         

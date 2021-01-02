@@ -47,7 +47,7 @@
             </div>
             <div class="col-md-4 py-4">
                 <div class="card pt-5" style="height: 200px; width: 300px">
-                    <a href="">
+                    <a href="/laporan">
                         <div class="card-body pt-4">
                             Data Laporan
                         </div>

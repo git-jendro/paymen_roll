@@ -1,204 +1,314 @@
-<!doctype html>
-<html lang="en">
-
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- CSRF Token -->
-        {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
-
-        <title>PT. Artha Kreasi Utama</title>
-
-        <!-- Scripts -->
-        <script src="js/app.js" defer></script>
-
-        <!-- Fonts -->
-        <link rel="dns-prefetch" href="//fonts.gstatic.com">
-        {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
-
-        <!-- Styles -->
-        <link href="css/app.css" rel="stylesheet">
-    </head>
-    <style>
-        .container,
-        .container-fluid,
-        .container-xl,
-        .container-lg,
-        .container-md,
-        .container-sm {
-        width: 100%;
-        /* padding-left: 5px; */
-        margin-right: 50px;
-        margin-left: 50px;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Print Laporan Nilai</title>
+    <style type="text/css">
+        body {
+            font-size: 10pt;
+            padding-top: 1rem;
         }
-        .row {
-        display: flex;
-        flex-wrap: wrap;
-        margin-right: -15px;
-        margin-left: -15px;
+        /* table td, table th {
+            border: 1px solid;
+        } */
+        .rowspan {
+            border-left-width: 10px;
         }
-        .col-12 {
-        flex: 0 0 100%;
-        max-width: 100%;
-        position: relative;
-        width: 100%;
-        padding-right: 15px;
-        padding-left: 15px;
+        .list-inline {
+            padding-left: 0;
+            list-style: none;
+        }
+        .item {
+            display: inline-block;
+        }
+        .d-flex {
+            display: flex !important;
+        }
+        .justify-content-around {
+            justify-content: space-around !important;
         }
     </style>
+</head>
+<body>
+    {{-- <span><p><h4><u>PT. Artha Kreasi Utama</u></h4>
+        Jl. Kebayoran Lama Raya No. 198, Jakarta Selatan<br>
+        Phone (021)727 8816 / 28126440</p>
+    </span> --}}
+    <ul class="list-inline">
+        <li class="item">
+            <img src="{{ public_path('img/logo.png')}}">
+        </li>
+        <li class="item">
+            <p><h4><u>PT. Artha Kreasi Utama</u></h4>
+                Jl. Kebayoran Lama Raya No. 198, Jakarta Selatan<br>
+                Phone (021)727 8816 / 28126440</p>
+        </li>
+    </ul>
+    <table style="margin-top: 3rem">
+        <tr>
+            <td style="width: 150px">
+                Nama
+            </td>
+            <td style="width: 150px">
+                : {{$absen->karyawan->nama}}
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+            <td style="width: 150px">
+                No. Rekening
+            </td>
+            <td style="width: 150px">
+                : {{$absen->karyawan->noRek}}
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 150px">
+                NIK
+            </td>
+            <td style="width: 150px">
+                : {{$absen->karyawan->noktp}}
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+            <td style="width: 150px">
+                Bank
+            </td>
+            <td style="width: 150px">
+                : {{$absen->karyawan->namaBank}}
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 150px">
+                Jabatan
+            </td>
+            <td style="width: 150px">
+                : @foreach ($ketentuan as $row)
+                    @if ($row->qualifier == 'JABATAN')
+                        @if ($row->code == $absen->karyawan->jabatan)
+                            : {{$row->localizedName}}
+                        @endif
+                    @endif
+                @endforeach
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+            <td style="width: 150px">
+                Periode
+            </td>
+            <td style="width: 150px">
+                : {{$periode->month}}
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 150px">
+                Divisi
+            </td>
+            <td style="width: 150px">
+                : @foreach ($ketentuan as $row)
+                    @if ($row->qualifier == 'DIVISI')
+                        @if ($row->code == $absen->karyawan->divisi)
+                            : {{$row->localizedName}}
+                        @endif
+                    @endif
+                @endforeach
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+            <td style="width: 150px">
+        
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+        </tr>
+    </table>
+    <table style="margin-top: 2rem">
+        <tr>
+            <td style="width: 150px; margin-bottom:1rem;">
+                <b>Salary Calculation</b>
+            </td>
+            <td style="width: 150px">
 
-    <body>
-        <div class="container" style="margin: 0rem">
-            <div class="col-12 mt-2">
-                <div class="d-flex flex-row bd-highlight">
-                    <div class="p-2 bd-highlight">
-                        {{-- <img src="{{asset('img/logo.png')}}"> --}}
-                    </div>
-                    <div class="p-2 bd-highlight">
-                        <h4><u>PT. Artha Kreasi Utama</u></h4>
-                        Jl. Kebayoran Lama Raya No. 198, Jakarta Selatan<br>
-                        Phone (021)727 8816 / 28126440
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="row mt-5">
-                    <div class="container col-5">
-                        <div class="row d-flex">
-                            <div class="container text-left">
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">Nama</label>
-                                    <div class="col-sm-8">
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">NIP</label>
-                                    <div class="col-sm-8">
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">Jabatan</label>
-                                    <div class="col-sm-6 input-group">
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">Divisi</label>
-                                    <div class="col-sm-6 input-group">
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">Status</label>
-                                    <div class="col-sm-6 input-group">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container col-5">
-                        <div class="row d-flex">
-                            <div class="container pl-3 pt-2">
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">No Rekening</label>
-                                    <div class="col-sm-8">
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">Bank</label>
-                                    <div class="col-sm-8">
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">Periode</label>
-                                    <div class="col-sm-8">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="row mt-3">
-                    <div class="container col-5">
-                        <div class="row d-flex">
-                            <div class="container text-left">
-                                <div>
-                                    <h5 class="text-underline">Kalkulasi Gaji</h5>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">Gaji Pokok</label>
-                                    <div class="col-sm-8">
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">Insentif Kehadiran</label>
-                                    <div class="col-sm-8">
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">Lembur</label>
-                                    <div class="col-sm-6 input-group">
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">Total Gaji Kotor</label>
-                                    <div class="col-sm-6 input-group">
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">Status</label>
-                                    <div class="col-sm-6 input-group">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container col-5">
-                        <div class="row d-flex">
-                            <div class="container pl-3 pt-2">
-                                <div>
-                                    <h5 class="text-underline">Potongan</h5>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">BPJS Kesehatan</label>
-                                    <div class="col-sm-8">
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">BPJS
-                                        Ketenagakerjaan</label>
-                                    <div class="col-sm-8">
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">BPJS Pensiun</label>
-                                    <div class="col-sm-8">
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">Potongan</label>
-                                    <div class="col-sm-8">
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-4 col-form-label">Total Potongan</label>
-                                    <div class="col-sm-8">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 py-5">
-                <div class="form-inline my-2">
-                    <label class="col-sm-4 col-form-label">Salary</label>
-                    <div class="col-sm-8">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
-
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+            <td style="width: 150px; margin-bottom:1rem;">
+                <b>Deduction</b>
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 150px">
+                Gaji Pokok
+            </td>
+            <td style="width: 150px">
+                : {{$absen->gajiPokok}}
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+            <td style="width: 150px">
+                BPJS Kesehatan 1%
+            </td>
+            <td style="width: 150px">
+                : {{$absen->bpjsKes}}
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 150px">
+                Tunjangan Tetap
+            </td>
+            <td style="width: 150px">
+                : Tunjangan Tetap
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+            <td style="width: 150px">
+                BPJS Ketenagakerjaan 2%
+            </td>
+            <td style="width: 150px">
+                : {{$absen->bpjsTK}}
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 150px">
+                Rapel
+            </td>
+            <td style="width: 150px">
+                : Rapel
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+            <td style="width: 150px">
+                BPJS Pensiun 1%
+            </td>
+            <td style="width: 150px">
+                : {{$absen->bpjsJP}}
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 150px">
+                Insentif Kehadiran
+            </td>
+            <td style="width: 150px">
+                : {{$absen->insentif}}
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+            <td style="width: 150px">
+                Potongan Absen
+            </td>
+            <td style="width: 150px">
+                : {{$absen->totalPotongan}}
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 150px">
+                Lembur
+            </td>
+            <td style="width: 150px">
+                : {{$absen->lembur}}
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+            <td style="width: 150px">
+                PPH 21
+            </td>
+            <td style="width: 150px">
+                : PPH 21
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 150px">
+                Jam Lembur
+            </td>
+            <td style="width: 150px">
+                : Lembur
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+            <td style="width: 150px">
+                Potongan Kas
+            </td>
+            <td style="width: 150px">
+                : Potongan Kas
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 150px">
+                Hari Kerja
+            </td>
+            <td style="width: 150px">
+                : {{$absen->jmlMasuk}}
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+        </tr>
+    </table>
+    <table style="margin-top: 2rem">
+        <tr>
+            <td style="width: 150px; margin-bottom:1rem;">
+                <b>Gross Salary</b>
+            </td>
+            <td style="width: 150px">
+                <b>: {{$absen->gajiKotor}}</b>
+            </td>
+            <td style="width: 150px">
+                
+            </td>
+            <td style="width: 150px; margin-bottom:1rem;">
+                <b>Total Deduction</b>
+            </td>
+            <td style="width: 150px">
+                <b>: {{$absen->totalPotongan}}</b>
+            </td>
+        </tr>
+    </table>
+    <table style="margin-top: 1rem">
+        <tr>
+            <td style="width: 400px; margin-bottom:1rem;">
+                <hr>
+                <hr>
+            </td>
+            <td style="width: 130px; margin-bottom:1rem; padding-left:1rem">
+                <b>Total Salary</b>
+            </td>
+            <td style="width: 130px">
+                <b>: {{$absen->gajiBersih}}</b>
+            </td>
+        </tr>
+    </table>
+    <table style="margin-top: 1rem">
+        <tr>
+            <td style="width: 400px; margin-bottom:1rem;">
+                <p>
+                    <i><u><b>Note :</b></u><br>
+                        Complai lewat dari 5 hari kerja setelah menerima Slip Gaji ini <b>tidak akan dilayani.</b><br>
+                    </i>
+                    <b>Slip Gaji</b>ini sah tanpa stampel dan tanda tangan.
+                </p>
+            </td>
+        </tr>
+    </table>
+    
+</body>
 </html>

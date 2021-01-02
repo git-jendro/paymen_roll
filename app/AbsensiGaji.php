@@ -14,11 +14,11 @@ class AbsensiGaji extends Model
 
     public function karyawan()
     {
-        return $this->hasOne(Karyawan::class, 'nip', 'nip');
+        return $this->hasOne(Karyawan::class, 'nip','nip');
     }
 
     public function data()
     {
-        return $this->hasMany('App\Absen', 'absensi_gaji_id');
+        return $this->hasMany(Absen::class, 'absensi_gaji_id');
     }
 }

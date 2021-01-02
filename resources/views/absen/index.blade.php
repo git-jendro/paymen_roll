@@ -56,64 +56,76 @@
     <div class="mt-4">
         <div class="d-flex">
             <div class="mr-auto p-2"><h5>Data Absensi</h5></div>
-            <div class="p-2"><a href="/absen/create" class="btn btn-oval"><h5 style="margin-bottom: 0rem">Input Absen</h5></a></div>
-            <div class="p-2"><a href="" class="btn btn-oval"><h5 style="margin-bottom: 0rem">Upload  Absen</h5></a></div>
+            <div class="p-2">
+                <a href="/absen/create" class="btn btn-oval"><h5 style="margin-bottom: 0rem">Input Absen</h5></a>
+            </div>
+            <div class="p-2">
+                <button type="button" class="btn btn-oval" data-toggle="modal" data-target="#exampleModal">
+                    <h5 style="margin-bottom: 0rem">Upload  Absen</h5>
+                  </button>
+            </div>
         </div>
     </div>
 </div>
 <div class="container">
     <div class="mt-2">
         <div class="card">
-            <table class="table table-borderless">
+            <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col">NIP</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Masuk</th>
-                        <th scope="col">Sakit</th>
-                        <th scope="col">Izin</th>
-                        <th scope="col">Cuti</th>
-                        <th scope="col">Alfa</th>
-                        <th scope="col">Libur</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Tipe Karyawan</th>
-                        <th class="text-center" scope="col" colspan="2">Action</th>
+                        <th class="pl-3 pr-3" scope="col">No.</th>
+                        <th class="pl-3 pr-3" scope="col">NIP</th>
+                        <th class="pl-3 pr-3" scope="col">Nama</th>
+                        <th class="pl-3 pr-3" scope="col">Masuk</th>
+                        <th class="pl-3 pr-3" scope="col">Sakit</th>
+                        <th class="pl-3 pr-3" scope="col">Izin</th>
+                        <th class="pl-3 pr-3" scope="col">Cuti</th>
+                        <th class="pl-3 pr-3" scope="col">Libur</th>
+                        <th class="pl-3 pr-3" scope="col">Total</th>
+                        <th class="pl-3 pr-3" scope="col">Tipe Karyawan</th>
+                        <th class="text-center" class="pl-3 pr-3" scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($data as $item)
                     <tr>
-                        <td>
-                            
+                        <td class="pl-3 pr-3">
+                            {{-- {{dd($item)}} --}}
                         </td>
-                        <td>
-                            Otto
+                        <td class="pl-3 pr-3">
+                            {{$item->nip}}
                         </td>
-                        <td>
-                            @mdo
+                        <td class="pl-3 pr-3">
+                            {{$item->karyawan->nama}}
                         </td>
-                        <td>
-                            Mark
+                        <td class="pl-3 pr-3">
+                            {{$item->jmlMasuk}}
                         </td>
-                        <td>
-                            Otto
+                        <td class="pl-3 pr-3">
+                            {{$item->jmlSakit}}
                         </td>
-                        <td>
-                            @mdo
+                        <td class="pl-3 pr-3">
+                            {{$item->jmlIzin}}
                         </td>
-                        <td>
-                            Otto
+                        <td class="pl-3 pr-3">
+                            {{$item->jmlCuti}}
                         </td>
-                        <td>
-                            @mdo
+                        <td class="pl-3 pr-3">
+                            {{$item->jmlLibur}}
                         </td>
-                        <td>
-                            Otto
+                        <td class="pl-3 pr-3">
+                            {{$item->TotalHari}}
                         </td>
-                        <td>
-                            @mdo
+                        <td class="pl-3 pr-3">
+                            @foreach ($ketentuan as $row)
+                                @if ($row->qualifier == 'STATUSKERJA')
+                                    @if ($row->code == $item->karyawan->statusKerja)
+                                        {{$row->localizedName}}
+                                    @endif
+                                @endif
+                            @endforeach
                         </td>
-                        <td>
+                        <td class="pl-3 pr-3">
                             <a href="/karyawan/edit">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -122,7 +134,7 @@
                                 </svg>
                             </a>
                         </td>
-                        <td>
+                        <td class="pl-3 pr-3">
                             <a href="/karyawan/show">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-square-fill"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -132,9 +144,46 @@
                             </a>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
+    </div>
+</div>
+<!-- Button trigger modal -->  
+  <!-- Modal -->
+<div class="modal fade pl-2 pr-2 mt-5" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"  style="height: 50%;width: 50%; margin:auto">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Upload Data Absen</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="modal-body">
+                <div class="form-inline my-2">
+                    <label class="col-sm-4 col-form-label">Upload File</label>
+                    <div class="col-sm-8">
+                        <input type="file" name="path" class="form-control @error('path') is-invalid @enderror">
+                        @error('path')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="d-flex">
+                        <div class="py-2 mr-3">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                        <div class="py-2">
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+      </div>
     </div>
 </div>
 @endsection

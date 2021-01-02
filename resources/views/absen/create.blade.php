@@ -14,7 +14,7 @@
     </div>
 </div>
 <div class="container" style="margin-left: 0.25rem">
-    <form action="/absen/store" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row mt-4 ml-1">
             <div class="container col-12" style="margin-left: 0px; margin-right: 0px">
@@ -29,7 +29,7 @@
                                     </select> --}}
                                     <label class="col-sm-4 col-form-label" id="bulan"></label>
                                 </div>
-                                <label style="font-size: 0.7rem; color: #636262">*Masukan data sesuai dengan ketentuan (M = Masuk, S = Sakit, I = Izin) !</label>
+                                <label style="font-size: 0.7rem; color: #636262">*Masukan data sesuai dengan ketentuan (M = Masuk, S = Sakit, I = Izin, O = Overtime (Lembur) dan L = Libur) !</label>
                             </div>
                         </div>
                         <div class="auto text-center">
@@ -106,8 +106,9 @@
             url : 'http://localhost:8000/absen/get/',
             success : function (res) {
                 $.each(res.absen, function (i, item) {
+                console.log(item.data);
                     try {
-                        $('#body').append('<tr id="cek'+i+'"><td style="width:2%;"></td><td style="width:15%"><input type="text" name="nip('+i+')[]" class="form-control" value="'+item.nip+'" readonly id="nip('+item.nip+')"></td></tr>')
+                        $('#body').append('<tr id="cek'+i+'"><td id="absen'+item.id+'" style="width:2%;"></td><td style="width:15%"><input type="text" name="nip('+i+')[]" class="form-control" value="'+item.nip+'" readonly id="nip('+item.nip+')"></td></tr>')
                         $.each(res.data, function (x, val) {
                             try {
                                 if (item.id == val.absensi_gaji_id) {
@@ -144,6 +145,7 @@
         var i = count.I;
         var c = count.C;
         var l = count.L;
+        var o = count.O;
         var total = names.length;
         if (count.M == null) {
             var m = 0; 
@@ -160,9 +162,12 @@
         if (count.L == null) {
             var l = 0; 
         }
+        if (count.O == null) {
+            var o = 0; 
+        }
         $.ajax({
             type : 'GET',
-            url : 'http://localhost:8000/absen/store/'+id+'/'+m+'/'+s+'/'+i+'/'+c+'/'+l+'/'+total+'/'+data+'/'+index,
+            url : 'http://localhost:8000/absen/store/'+id+'/'+m+'/'+s+'/'+i+'/'+c+'/'+l+'/'+o+'/'+total+'/'+data+'/'+index,
             success : function (res) {
                 console.log(res);
             }

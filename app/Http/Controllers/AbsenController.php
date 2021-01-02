@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Absen;
 use App\AbsensiGaji;
+use App\Karyawan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AbsenController extends Controller
 {
@@ -24,8 +26,10 @@ class AbsenController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
-        return view('/absen/index');
+    {   
+        $ketentuan = $this->ketentuan();
+        $data = AbsensiGaji::orderBy('created_at', 'desc')->get();
+        return view('/absen/index', compact('data', 'ketentuan'));
     }
 
     /**
@@ -35,11 +39,27 @@ class AbsenController extends Controller
      */
     public function create()
     {
-        $carbon = $this->carbon();
         $absen = $this->absensi_get();
-        $a = Absen::all();
-        $b = AbsensiGaji::find(4)->data;
-        // dd($b);
+        $carbon = $this->carbon();
+
+        if (Absen::where('month', $carbon->monthName)->count() == 0) {
+            $karyawan = Karyawan::all();
+            foreach ($karyawan as $value) {
+                $absensi = new AbsensiGaji;
+                $absensi->nip = $value->nip;
+                $absensi->save();
+                for ($i=0; $i < $carbon->daysInMonth; $i++) { 
+                    $absen = new Absen;
+                    $absen->absensi_gaji_id = $absensi->id;
+                    $absen->month = $carbon->monthName;
+                    $absen->daysamonth = $carbon->daysInMonth;
+                    $absen->data = '';
+                    $absen->save();
+                }
+            }
+
+        }
+
         return view('/absen/create', compact('absen'));
     }
 
@@ -50,20 +70,8 @@ class AbsenController extends Controller
      * @return \Illuminate\Http\Response
      */
     // public function store(Request $request)
-    public function store($id, $m, $s, $i, $c,$l, $total, $data, $index)
+    public function store($id, $m, $s, $i, $c, $l, $o, $total, $data, $index)
     {
-        $carbon = $this->carbon();
-        if (Absen::where('month', $carbon->monthName)->count() == 0 || Absen::where('absensi_gaji_id', $id)->count() == 0) {
-            for ($i=0; $i < $carbon->daysInMonth; $i++) { 
-                $absen = new Absen;
-                $absen->absensi_gaji_id = $id;
-                $absen->month = $carbon->monthName;
-                $absen->daysamonth = $carbon->daysInMonth;
-                $absen->data = '';
-                $absen->save();
-            }
-        }
-
         $item = Absen::find($index);
         $item->data = $data;
         $item->save();
@@ -129,12 +137,17 @@ class AbsenController extends Controller
 
     public function get()
     {
-        $absen = $this->absensi_get();
+        $carbon = $this->carbon()->monthName;
         $data = $this->absen();
-
+        $absen = AbsensiGaji::orderBy('created_at', 'desc')->get();
         return response()->json([
             'absen' => $absen,
             'data' => $data
         ]);
+    }
+
+    public function upload(Request $request)
+    {
+        
     }
 }
