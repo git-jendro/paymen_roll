@@ -47,6 +47,8 @@ class AbsenController extends Controller
             foreach ($karyawan as $value) {
                 $absensi = new AbsensiGaji;
                 $absensi->nip = $value->nip;
+                $absensi->isHitung = 1;
+                $absensi->isBayar = 1;
                 $absensi->save();
                 for ($i=0; $i < $carbon->daysInMonth; $i++) { 
                     $absen = new Absen;
@@ -75,7 +77,7 @@ class AbsenController extends Controller
         $item = Absen::find($index);
         $item->data = $data;
         $item->save();
-
+ 
         $absen = AbsensiGaji::find($id);
         $absen->jmlMasuk = $m;
         $absen->jmlSakit = $s;

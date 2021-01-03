@@ -195,7 +195,7 @@ class GajiController extends Controller
     {
         //
     }
-
+ 
     public function print(Request $request)
     {
         if (request()->has('check')) {
@@ -204,7 +204,7 @@ class GajiController extends Controller
                 $periode = Absen::where('absensi_gaji_id', $id)->first();
                 $absen = $this->absensi_first($id)->first();
                 $pdf = PDF::loadView('/gaji/invoice', compact('absen', 'ketentuan', 'periode'));
-                return $pdf->download('invoice-gaji-'.$absen->karyawan->nama.'.pdf');
+                return $pdf->download('invoice-gaji-'.$absen->karyawan->nama.'('.$absen->nip.').pdf');
                 // return view('/gaji/invoice', compact('absen', 'ketentuan', 'periode'));
             }
             

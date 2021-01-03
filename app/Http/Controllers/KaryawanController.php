@@ -96,11 +96,25 @@ class KaryawanController extends Controller
 
         $absen = new AbsensiGaji;
         $absen->nip = $nip;
+        $absen->jmlMasuk = 0;
+        $absen->jmlSakit = 0;
+        $absen->jmlIzin = 0;
+        $absen->jmlCuti = 0;
+        $absen->jmlLibur = 0;
+        $absen->totalHari = 0;
+        $absen->isHitung = 1;
+        $absen->isBayar = 1;
+        $absen->isBayar = 1;
         $absen->save();
 
-        
-        if (Absen::where('month', Carbon::now()->month)->count() == 0) {
-            
+        $carbon = $this->carbon();
+        for ($i=0; $i < $carbon->daysInMonth; $i++) { 
+            $data = new Absen;
+            $data->absensi_gaji_id = $absen->id;
+            $data->month = $carbon->monthName;
+            $data->daysamonth = $carbon->daysInMonth;
+            $data->data = '';
+            $data->save();
         }
 
         return redirect()->action('KaryawanController@index')->with('store', 'Data karyawan berhasil ditambah');
@@ -192,6 +206,10 @@ class KaryawanController extends Controller
      */
     public function destroy($nip)
     {
+        $data = AbsensiGaji::where('nip', $nip)->get();
+        foreach ($data as $key ) {
+            Absen::where('absensi_gaji_id', $key->id)->delete();
+        }
         AbsensiGaji::where('nip', $nip)->delete();
         $this->karyawan_first($nip)->delete();
 

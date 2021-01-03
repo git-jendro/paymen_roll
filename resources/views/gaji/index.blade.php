@@ -70,7 +70,7 @@
     <div class="container">
         <div class="alert alert-danger">
             {{ session('fail') }}
-        </div>
+        </div> 
     </div>
 @endif
 <div class="container">
@@ -126,7 +126,7 @@
                             {{$item->isHitung}}
                         </td>
                         <td class="pl-2 pr-2">
-                            {{$item->isBayar}}
+                            {{$item->Isbayar}}
                         </td>
                     </tr>
                     @endforeach
