@@ -12,4 +12,9 @@ class Ketentuan extends Model
     protected $fillable = [
         'qualifier', 'code', 'localizedName', 'flagAttr1'
     ];
+
+    public function int($value)
+    {
+        $this->attributes['flagAttr1'] = integerValue($value);
+    }
 }

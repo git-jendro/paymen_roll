@@ -29,7 +29,7 @@
                                     </select> --}}
                                     <label class="col-sm-4 col-form-label" id="bulan"></label>
                                 </div>
-                                <label style="font-size: 0.7rem; color: #636262">*Masukan data sesuai dengan ketentuan (M = Masuk, S = Sakit, I = Izin, O = Overtime (Lembur) dan L = Libur) !</label>
+                                <label style="font-size: 0.7rem; color: #636262">*Masukan data sesuai dengan ketentuan (M = Masuk, S = Sakit, I = Izin, C = Cuti, O = Overtime (Lembur) dan L = Libur) !</label>
                             </div>
                         </div>
                         <div class="auto text-center">
@@ -47,7 +47,7 @@
         </div>
         <div class="row d-flex justify-content-end">
             <div class="col-md-2 py-4 ml-2 text-right" style="padding-right:0px">
-                <a href="{{url()->previous()}}" class="btn btn-danger" style="width: 80%">Batal</a>
+                <a href="{{url()->previous()}}" class="btn btn-danger" style="width: 80%">Kembali</a>
             </div>
             {{-- <div class="col-md-2 py-4 text-center" style="padding-left:0px">
                 <button type="submit" class="btn btn-primary" style="width: 80%">Submit</button>
@@ -106,13 +106,12 @@
             url : 'http://localhost:8000/absen/get/',
             success : function (res) {
                 $.each(res.absen, function (i, item) {
-                console.log(item.data);
                     try {
-                        $('#body').append('<tr id="cek'+i+'"><td id="absen'+item.id+'" style="width:2%;"></td><td style="width:15%"><input type="text" name="nip('+i+')[]" class="form-control" value="'+item.nip+'" readonly id="nip('+item.nip+')"></td></tr>')
+                        $('#body').append('<tr id="cek'+i+'"><td id="absen'+item.id+'" style="width:2%;"></td><td style="width:15%"><input type="text" name="nip('+i+')[]" class="form-control" value="'+item.karyawan.nama+'" readonly id="nip('+item.nip+')"></td></tr>')
                         $.each(res.data, function (x, val) {
                             try {
                                 if (item.id == val.absensi_gaji_id) {
-                                    $('#cek'+i).append('<td style="width:2.25%;"><input type="text" name="absen[]" value="'+val.data+'" class="form-control text-center absen'+item.id+'" id="absen'+val.id+'" onkeyup="absen('+item.id+','+val.id+')" style="padding:0.3rem;text-transform: uppercase;"></td>');
+                                    $('#cek'+i).append('<td style="width:2.25%;"><input type="text" name="absen[]" value="'+val.data+'" class="form-control text-center absen'+item.id+'" id="row'+val.id+'" onkeyup="absen('+item.id+','+val.id+')" style="padding:0.3rem;text-transform: uppercase;"></td>');
                                 }
                             } catch (error) {
                                 
@@ -131,7 +130,8 @@
         names  = [].map.call(inputs, function( input ) {
             return input.value.toUpperCase();
         });
-        var data = $('#absen'+index).val().toUpperCase();
+        var data = $('#row'+index).val().toUpperCase();
+        console.log(data);
         var val = names.map(function(word){
                 if (word.length > 1) {
                     alert("Hanya boleh memasukan 1 huruh dalam 1 kolom ! \nHarap untuk mengisi form dengan benar !");

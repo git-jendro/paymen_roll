@@ -132,7 +132,7 @@
                                 <label class="col-sm-4 col-form-label">Status Karyawan</label>
                                 <div class="col-sm-8 py-2">
                                     @foreach ($ketentuan as $row)
-                                        @if ($row->qualifier == 'STATUSKERJA')
+                                        @if ($row->qualifier == 'STATUSKARYAWAN')
                                             @if ($row->code == $karyawan->statusKerja)
                                                 : {{$row->localizedName}}
                                             @endif

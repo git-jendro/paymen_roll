@@ -26,16 +26,19 @@
                             NIP
                         </th>
                         <th style="width: 30%" class="pl-3 pr-3">
-                            <input type="text" class="form-control" id="nip" >
+                            <input type="text" class="form-control" id="nip" onkeyup="filternip()">
                         </th>
                         <th class="pl-3 pr-3">
-                            Status
+                            Tipe Karyawan
                         </th>
                         <th class="pl-3 pr-3">
-                            <select class="form-control" id="" style="width: 100%">
-                                <option value=""></option>
-                                <option value="">3</option>
-                                <option value="">2</option>
+                            <select class="form-control" id="tipe" onchange="filtertipe()">
+                                <option value="">Pilih Tipe Karyawan</option>
+                                @foreach ($ketentuan as $item)
+                                @if ($item->qualifier == 'TIPEKARYAWAN')
+                                <option value="{{$item->code}}">{{$item->localizedName}}</option>
+                                @endif
+                                @endforeach
                             </select>
                         </th>
                     </tr>
@@ -44,7 +47,7 @@
                             Nama
                         </th>
                         <th style="width: 30%" class="pl-3 pr-3">
-                            <input type="text" class="form-control" id="nip" >
+                            <input type="text" class="form-control" id="nama" onkeyup="filternama()">
                         </th>
                     </tr>
                 </tbody>
@@ -76,21 +79,23 @@
                         <th class="pl-3 pr-3" scope="col">No.</th>
                         <th class="pl-3 pr-3" scope="col">NIP</th>
                         <th class="pl-3 pr-3" scope="col">Nama</th>
-                        <th class="pl-3 pr-3" scope="col">Masuk</th>
-                        <th class="pl-3 pr-3" scope="col">Sakit</th>
-                        <th class="pl-3 pr-3" scope="col">Izin</th>
-                        <th class="pl-3 pr-3" scope="col">Cuti</th>
-                        <th class="pl-3 pr-3" scope="col">Libur</th>
-                        <th class="pl-3 pr-3" scope="col">Total</th>
+                        <th class="pl-3 pr-3 text-center" scope="col">Masuk</th>
+                        <th class="pl-3 pr-3 text-center" scope="col">Sakit</th>
+                        <th class="pl-3 pr-3 text-center" scope="col">Izin</th>
+                        <th class="pl-3 pr-3 text-center" scope="col">Cuti</th>
+                        <th class="pl-3 pr-3 text-center" scope="col">Libur</th>
+                        <th class="pl-3 pr- text-center" scope="col">Total Hari</th>
                         <th class="pl-3 pr-3" scope="col">Tipe Karyawan</th>
-                        <th class="text-center" class="pl-3 pr-3" scope="col" colspan="2">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbody">
+                    @php
+                        $i = 1
+                    @endphp
                     @foreach ($data as $item)
                     <tr>
                         <td class="pl-3 pr-3">
-                            {{-- {{dd($item)}} --}}
+                            {{$i++}}
                         </td>
                         <td class="pl-3 pr-3">
                             {{$item->nip}}
@@ -98,50 +103,32 @@
                         <td class="pl-3 pr-3">
                             {{$item->karyawan->nama}}
                         </td>
-                        <td class="pl-3 pr-3">
+                        <td class="pl-3 pr-3 text-center">
                             {{$item->jmlMasuk}}
                         </td>
-                        <td class="pl-3 pr-3">
+                        <td class="pl-3 pr-3 text-center">
                             {{$item->jmlSakit}}
                         </td>
-                        <td class="pl-3 pr-3">
+                        <td class="pl-3 pr-3 text-center">
                             {{$item->jmlIzin}}
                         </td>
-                        <td class="pl-3 pr-3">
+                        <td class="pl-3 pr-3 text-center">
                             {{$item->jmlCuti}}
                         </td>
-                        <td class="pl-3 pr-3">
+                        <td class="pl-3 pr-3 text-center">
                             {{$item->jmlLibur}}
                         </td>
-                        <td class="pl-3 pr-3">
+                        <td class="pl-3 pr-3 text-center">
                             {{$item->TotalHari}}
                         </td>
                         <td class="pl-3 pr-3">
                             @foreach ($ketentuan as $row)
-                                @if ($row->qualifier == 'STATUSKERJA')
+                                @if ($row->qualifier == 'STATUSKARYAWAN')
                                     @if ($row->code == $item->karyawan->statusKerja)
                                         {{$row->localizedName}}
                                     @endif
                                 @endif
                             @endforeach
-                        </td>
-                        <td class="pl-3 pr-3">
-                            <a href="/karyawan/edit">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill"
-                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
-                                </svg>
-                            </a>
-                        </td>
-                        <td class="pl-3 pr-3">
-                            <a href="/karyawan/show">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-square-fill"
-                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
-                                </svg>
-                            </a>
                         </td>
                     </tr>
                     @endforeach
@@ -186,19 +173,119 @@
       </div>
     </div>
 </div>
+<script>
+    function filternip() {
+        var nip = $('#nip').val();
+        let _token   = $('meta[name="csrf-token"]').attr('content');
+
+        $.ajax({
+            type : 'POST',
+            url : 'http://localhost:8000/nip/',
+            data : {
+                nip : nip,
+                _token : _token
+            },
+            success : function (res) {
+            $('#tbody').html('');
+                if (nip == null) {
+                    $.each(res.all, function (i, item) {
+                        i++;
+                        $('#tbody').append('<tr><td class="pl-3 pr-3">'+i+'</td><td class="pl-3 pr-3">'+item.nip+'</td><td class="pl-3 pr-3">'+item.nama+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlMasuk+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlSakit+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlIzin+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlCuti+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlLibur+'</td><td class="pl-3 pr-3 text-center">'+item.absen.TotalHari+'</td><td class="pl-3 pr-3" id="ket'+i+'"></td></tr>');
+                        $.each(res.ket, function (x, xitem) {
+                            if (item.statusKerja == xitem.code) {
+                                $('#ket'+i).append(xitem.localizedName);
+                            }
+                        });
+                    });
+                } else {
+                    $.each(res.karyawan, function (i, item) {
+                        i++;
+                        $('#tbody').append('<tr><td class="pl-3 pr-3">'+i+'</td><td class="pl-3 pr-3">'+item.nip+'</td><td class="pl-3 pr-3">'+item.nama+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlMasuk+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlSakit+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlIzin+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlCuti+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlLibur+'</td><td class="pl-3 pr-3 text-center">'+item.absen.TotalHari+'</td><td class="pl-3 pr-3" id="ket'+i+'"></td></tr>');
+                        $.each(res.ket, function (x, xitem) {
+                            if (item.statusKerja == xitem.code) {
+                                $('#ket'+i).append(xitem.localizedName);
+                            }
+                        }); 
+                    });
+                }
+            }
+        })
+    }
+
+    function filternama() {
+        var nama = $('#nama').val();
+        let _token   = $('meta[name="csrf-token"]').attr('content');
+
+        $.ajax({
+            type : 'POST',
+            url : 'http://localhost:8000/nama/',
+            data : {
+                nama : nama,
+                _token : _token
+            },
+            success : function (res) {
+            $('#tbody').html('');
+                if (nama == null) {
+                    $.each(res.all, function (i, item) {
+                        i++;
+                        $('#tbody').append('<tr><td class="pl-3 pr-3">'+i+'</td><td class="pl-3 pr-3">'+item.nip+'</td><td class="pl-3 pr-3">'+item.nama+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlMasuk+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlSakit+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlIzin+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlCuti+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlLibur+'</td><td class="pl-3 pr-3 text-center">'+item.absen.TotalHari+'</td><td class="pl-3 pr-3" id="ket'+i+'"></td></tr>');
+                        $.each(res.ket, function (x, xitem) {
+                            if (item.statusKerja == xitem.code) {
+                                $('#ket'+i).append(xitem.localizedName);
+                            }
+                        });
+                    });
+                } else {
+                    $.each(res.karyawan, function (i, item) {
+                        i++;
+                        $('#tbody').append('<tr><td class="pl-3 pr-3">'+i+'</td><td class="pl-3 pr-3">'+item.nip+'</td><td class="pl-3 pr-3">'+item.nama+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlMasuk+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlSakit+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlIzin+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlCuti+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlLibur+'</td><td class="pl-3 pr-3 text-center">'+item.absen.TotalHari+'</td><td class="pl-3 pr-3" id="ket'+i+'"></td></tr>');
+                        $.each(res.ket, function (x, xitem) {
+                            if (item.statusKerja == xitem.code) {
+                                $('#ket'+i).append(xitem.localizedName);
+                            }
+                        }); 
+                    });
+                }
+            }
+        })
+    }
+
+    function filtertipe() {
+        var tipe = $('#tipe').val();
+        let _token   = $('meta[name="csrf-token"]').attr('content');
+
+        $.ajax({
+            type : 'POST',
+            url : 'http://localhost:8000/tipe/',
+            data : {
+                tipe : tipe,
+                _token : _token
+            },
+            success : function (res) {
+            $('#tbody').html('');
+                if (tipe == null) {
+                    $.each(res.all, function (i, item) {
+                        i++;
+                        $('#tbody').append('<tr><td class="pl-3 pr-3">'+i+'</td><td class="pl-3 pr-3">'+item.nip+'</td><td class="pl-3 pr-3">'+item.nama+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlMasuk+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlSakit+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlIzin+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlCuti+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlLibur+'</td><td class="pl-3 pr-3 text-center">'+item.absen.TotalHari+'</td><td class="pl-3 pr-3" id="ket'+i+'"></td></tr>');
+                        $.each(res.ket, function (x, xitem) {
+                            if (item.statusKerja == xitem.code) {
+                                $('#ket'+i).append(xitem.localizedName);
+                            }
+                        });
+                    });
+                } else {
+                    $.each(res.karyawan, function (i, item) {
+                        i++;
+                        $('#tbody').append('<tr><td class="pl-3 pr-3">'+i+'</td><td class="pl-3 pr-3">'+item.nip+'</td><td class="pl-3 pr-3">'+item.nama+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlMasuk+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlSakit+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlIzin+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlCuti+'</td><td class="pl-3 pr-3 text-center">'+item.absen.jmlLibur+'</td><td class="pl-3 pr-3 text-center">'+item.absen.TotalHari+'</td><td class="pl-3 pr-3" id="ket'+i+'"></td></tr>');
+                        $.each(res.ket, function (x, xitem) {
+                            if (item.statusKerja == xitem.code) {
+                                $('#ket'+i).append(xitem.localizedName);
+                            }
+                        }); 
+                    });
+                }
+            }
+        })
+    }
+</script>
 @endsection
-<style>
-    body {
-        counter-reset: Serial;
-        /* Set the Serial counter to 0 */
-    }
-    table {
-        border-collapse: separate;
-    }
-    tr td:first-child:before {
-        counter-increment: Serial;
-        /* Increment the Serial counter */
-        content: counter(Serial);
-        /* Display the counter */
-    }
-</style>

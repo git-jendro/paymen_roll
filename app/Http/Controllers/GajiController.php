@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Absen;
+use App\AbsensiGaji;
 use App\Ketentuan;
 use Illuminate\Http\Request;
 use PDF;
@@ -22,7 +23,8 @@ class GajiController extends Controller
     public function index()
     {
         $gaji = $this->absensi_get();
-        return view('/gaji/index', compact('gaji'));
+        $ketentuan = $this->ketentuan();
+        return view('/gaji/index', compact('gaji', 'ketentuan'));
     }
 
     public function status()
@@ -32,7 +34,32 @@ class GajiController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
+        if (Ketentuan::where('qualifier', 'LEMBUR')->count() > 0) {
+            Ketentuan::where('qualifier', 'LEMBUR')->delete();
+        } 
+        if (Ketentuan::where('qualifier', 'INSENTIF')->count() > 0) {
+            Ketentuan::where('qualifier', 'INSENTIF')->delete();
+        } 
+        if (Ketentuan::where('qualifier', 'BPJSTK')->count() > 0) {
+            Ketentuan::where('qualifier', 'BPJSTK')->delete();
+        } 
+        if (Ketentuan::where('qualifier', 'BPJSKES')->count() > 0) {
+            Ketentuan::where('qualifier', 'BPJSKES')->delete();
+        } 
+        if (Ketentuan::where('qualifier', 'BPJSJP')->count() > 0) {
+            Ketentuan::where('qualifier', 'BPJSJP')->delete();
+        } 
+        if (Ketentuan::where('qualifier', 'POTONGAN')->count() > 0) {
+            Ketentuan::where('qualifier', 'POTONGAN')->delete();
+        } 
+        if (Ketentuan::where('qualifier', 'TIPEUMR')->count() > 0) {
+            Ketentuan::where('qualifier', 'TIPEUMR')->delete();
+        } 
+        if (Ketentuan::where('qualifier', 'TUNJANGAN')->count() > 0) {
+            Ketentuan::where('qualifier', 'TUNJANGAN')->delete();
+        }
+        
+        
         $this->validateRequest();
         $ketentuan = new Ketentuan;
         $ketentuan->qualifier = 'LEMBUR';
@@ -66,7 +93,7 @@ class GajiController extends Controller
         $ketentuan->qualifier = 'BPJSJP';
         $ketentuan->code = 1;
         $ketentuan->localizedName = 'BPJSJP';
-        $ketentuan->flagAttr1 = $request->bpjsJP;
+        $ketentuan->flagAttr1 = $request->bpjsJp;
         $ketentuan->save();
 
         $ketentuan = new Ketentuan;
@@ -97,81 +124,127 @@ class GajiController extends Controller
         $ketentuan->flagAttr1 = $request->umr2;
         $ketentuan->save();
 
-        if (request()->has(['area3','umr3'])) {
-            
-            $ketentuan = new Ketentuan;
-            $ketentuan->qualifier = 'TIPEUMR';
-            $ketentuan->code = 3;
-            $ketentuan->localizedName = $request->area3;
-            $ketentuan->flagAttr1 = $request->umr3;
-            $ketentuan->save();
+        $ketentuan = new Ketentuan;
+        $ketentuan->qualifier = 'TUNJANGAN';
+        $ketentuan->code = 2;
+        $ketentuan->localizedName = 'Tunjangan';
+        $ketentuan->flagAttr1 = $request->tunjangan;
+        $ketentuan->save();
 
-        }elseif (request()->has(['are4','umr4'])) {
+        if (request()->has(['area3','umr3'])) {
+            if ($request->area3 == null) {
+                
+            } elseif ($request->area3 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'TIPEUMR';
+                $ketentuan->code = 3;
+                $ketentuan->localizedName = $request->area3;
+                $ketentuan->flagAttr1 = $request->umr3;
+                $ketentuan->save();
+            }
             
-            $ketentuan = new Ketentuan;
-            $ketentuan->qualifier = 'TIPEUMR';
-            $ketentuan->code = 4;
-            $ketentuan->localizedName = $request->area4;
-            $ketentuan->flagAttr1 = $request->umr4;
-            $ketentuan->save();
+        }elseif (request()->has(['are4','umr4'])) {
+            if ($request->area4 == null) {
+                
+            } elseif ($request->area4 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'TIPEUMR';
+                $ketentuan->code = 4;
+                $ketentuan->localizedName = $request->area4;
+                $ketentuan->flagAttr1 = $request->umr4;
+                $ketentuan->save();
+            }
 
         }elseif (request()->has(['area5','umr5'])) {
-            
-            $ketentuan = new Ketentuan;
-            $ketentuan->qualifier = 'TIPEUMR';
-            $ketentuan->code = 5;
-            $ketentuan->localizedName = $request->are5;
-            $ketentuan->flagAttr1 = $request->um5;
-            $ketentuan->save();
+            if ($request->area5 == null) {
+                
+            } elseif ($request->area5 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'TIPEUMR';
+                $ketentuan->code = 5;
+                $ketentuan->localizedName = $request->are5;
+                $ketentuan->flagAttr1 = $request->um5;
+                $ketentuan->save();
+            }
 
         }elseif (request()->has(['area6','umr6'])) {
-            
-            $ketentuan = new Ketentuan;
-            $ketentuan->qualifier = 'TIPEUMR';
-            $ketentuan->code = 6;
-            $ketentuan->localizedName = $request->area6;
-            $ketentuan->flagAttr1 = $request->umr6;
-            $ketentuan->save();
+            if ($request->area6 == null) {
+                
+            } elseif ($request->area6 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'TIPEUMR';
+                $ketentuan->code = 6;
+                $ketentuan->localizedName = $request->area6;
+                $ketentuan->flagAttr1 = $request->umr6;
+                $ketentuan->save();
+            }
 
         }elseif (request()->has(['area7','umr7'])) {
-            
-            $ketentuan = new Ketentuan;
-            $ketentuan->qualifier = 'TIPEUMR';
-            $ketentuan->code = 7;
-            $ketentuan->localizedName = $request->area7;
-            $ketentuan->flagAttr1 = $request->umr7;
-            $ketentuan->save();
+            if ($request->area7 == null) {
+                
+            } elseif ($request->area7 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'TIPEUMR';
+                $ketentuan->code = 7;
+                $ketentuan->localizedName = $request->area7;
+                $ketentuan->flagAttr1 = $request->umr7;
+                $ketentuan->save();
+            }
 
         }elseif (request()->has(['area8','umr8'])) {
-            
-            $ketentuan = new Ketentuan;
-            $ketentuan->qualifier = 'TIPEUMR';
-            $ketentuan->code = 8;
-            $ketentuan->localizedName = $request->area8;
-            $ketentuan->flagAttr1 = $request->umr8;
-            $ketentuan->save();
+            if ($request->area8 == null) {
+                
+            } elseif ($request->area8 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'TIPEUMR';
+                $ketentuan->code = 8;
+                $ketentuan->localizedName = $request->area8;
+                $ketentuan->flagAttr1 = $request->umr8;
+                $ketentuan->save();
+            }
 
         }elseif (request()->has(['area9','umr9'])) {
-            
-            $ketentuan = new Ketentuan;
-            $ketentuan->qualifier = 'TIPEUMR';
-            $ketentuan->code = 9;
-            $ketentuan->localizedName = $request->area9;
-            $ketentuan->flagAttr1 = $request->umr9;
-            $ketentuan->save();
+            if ($request->area9 == null) {
+                
+            } elseif ($request->area9 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'TIPEUMR';
+                $ketentuan->code = 9;
+                $ketentuan->localizedName = $request->area9;
+                $ketentuan->flagAttr1 = $request->umr9;
+                $ketentuan->save();
+            }
 
         }elseif (request()->has(['area10','umr10'])) {
-            
-            $ketentuan = new Ketentuan;
-            $ketentuan->qualifier = 'TIPEUMR';
-            $ketentuan->code = 10;
-            $ketentuan->localizedName = $request->area10;
-            $ketentuan->flagAttr1 = $request->umr10;
+            if ($request->area10 == null) {
+                
+            } elseif ($request->area10 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'TIPEUMR';
+                $ketentuan->code = 10;
+                $ketentuan->localizedName = $request->area10;
+                $ketentuan->flagAttr1 = $request->umr10;
+            }
             $ketentuan->save();
-
+            
         }
-
-        return redirect()->action('GajiController@index')->with('store', 'Ketentuan Gaji berhasil ditambah !');
+        return redirect()->action('HomeController@index')->with('store', 'Data Ketentuan telah ditambahkan !');
     }
 
     public function show($id)
@@ -179,7 +252,7 @@ class GajiController extends Controller
         return view('/gaji/index');
     }
 
-    public function ketentuan()
+    public function ketentuan_view()
     {
 
         return view('/gaji/ketentuan');
@@ -198,16 +271,16 @@ class GajiController extends Controller
  
     public function print(Request $request)
     {
-        if (request()->has('check')) {
+        if (request()->has('check')) { 
             foreach ($request->check as $id) {
-                $ketentuan = Ketentuan::all();
+                $ketentuan = $this->ketentuan();
                 $periode = Absen::where('absensi_gaji_id', $id)->first();
+                // dd(Absen::where('absensi_gaji_id', $id)->first());
                 $absen = $this->absensi_first($id)->first();
                 $pdf = PDF::loadView('/gaji/invoice', compact('absen', 'ketentuan', 'periode'));
                 return $pdf->download('invoice-gaji-'.$absen->karyawan->nama.'('.$absen->nip.').pdf');
-                // return view('/gaji/invoice', compact('absen', 'ketentuan', 'periode'));
             }
-            
+            // return view('/gaji/invoice', compact('absen', 'ketentuan', 'periode'));
         }else {
             return redirect()->action('GajiController@index')->with('fail', 'Silahkan pilih data yang ingin dicetak');
         }
@@ -221,7 +294,6 @@ class GajiController extends Controller
             'bpjsTK' => 'required',
             'bpjsKes' => 'required',
             'bpjsJp' => 'required',
-            'TotalHari' => 'required',
             'namapotongan1' => 'required',
             'potongan1' => 'required',
             'namapotongan2' => 'required',
@@ -230,6 +302,7 @@ class GajiController extends Controller
             'umr1' => 'required',
             'area2' => 'required',
             'umr2' => 'required',
+            'tunjangan' => 'required',
             ]), 
             function(){
                 },
@@ -281,4 +354,63 @@ class GajiController extends Controller
     //         ]);
     //     }
     // }
+
+    public function hitung()
+    {
+        //Get data dari table absensi_gaji yang statusnya belum dihitung
+        $gaji = AbsensiGaji::where('isHitung', 1)->get();
+        //Get value ketentuan Lembur
+        $l = Ketentuan::where('qualifier', 'LEMBUR')->value('flagAttr1');
+        //Get value ketentuan Insentif
+        $i = Ketentuan::where('qualifier', 'INSENTIF')->value('flagAttr1');
+        //Get value ketentuan BPJSTK
+        $tk = Ketentuan::where('qualifier', 'BPJSTK')->value('flagAttr1');
+        //Get value ketentuan BPJSKES
+        $kes = Ketentuan::where('qualifier', 'BPJSKES')->value('flagAttr1');
+        //Get value ketentuan BPJSJP
+        $jp = Ketentuan::where('qualifier', 'BPJSJP')->value('flagAttr1');
+        //Get value ketentuan Potongan
+        $p = Ketentuan::where('qualifier', 'POTONGAN')->sum('flagAttr1');
+        //Get value ketentuan Tunjangan
+        $t = Ketentuan::where('qualifier', 'TUNJANGAN')->sum('flagAttr1');
+        foreach ($gaji as $key) {
+            //Get value Gaji Pokok
+            $raw = Ketentuan::where('qualifier', 'TIPEUMR')->where('code', $key->gajiPokok)->value('flagAttr1');
+            //Kalkulasi jumlah Lembur
+            $lembur = $raw / $l * $key->jmlLembur;
+            
+            //Kalkulasi Gaji Harian
+            // $gh = $raw / $key->jmlMasuk;
+
+            //Kalkulasi Total Gaji Daily Worker
+            // $tg =  $gh * $key->jmlMasuk + $lembur - $p;
+
+            //Kalkulasi Total Hari Kerja
+            $th = $key->TotalHari - $key->jmlLibur;
+
+            //Kalkulasi Potongan Absen
+            $pa = (($key->jmlCuti + $key->jmlIzin) * ($raw + $t)) / $th;
+
+            //Kalkulasi Potongan BPJSKES
+            $pbpjs = ($raw / 100) * $kes;
+
+            //Kalkulasi Total Gaji Inbound
+            $tg = ($raw + $lembur + $i) - ($pa + $pbpjs);
+            $data = explode('.', $tg);
+            $result =(int) value($data[0]);
+            $absen = AbsensiGaji::find($key->id);
+            $absen->lembur = $lembur;
+            $absen->insentif = $i;
+            $absen->bpjsTk = $tk;
+            $absen->bpjsKes = $kes;
+            $absen->bpjsJp = $jp;
+            $absen->gajiKotor = $raw;
+            $absen->totalPotongan = $pa;
+            $absen->gajiBersih = $result;
+            $absen->isHitung = 2;
+            $absen->save();
+
+        }
+        return redirect()->action('GajiController@index')->with('hitung', 'Gaji telah dihitung !');
+    }
 }

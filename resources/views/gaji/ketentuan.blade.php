@@ -45,6 +45,15 @@
                                     </div>
                                 </div>
                                 <div class="form-inline my-2">
+                                    <label class="col-sm-6 col-form-label">Ketentuan Tunjangan</label>
+                                    <div class="col-sm-6" style="padding-left: 0rem">
+                                        <input type="text" placeholder="Masukan Ketentuan Tunjangan" name="tunjangan" style="width: 100%" class="form-control  @error('tunjangan') is-invalid @enderror">
+                                        @error('tunjangan')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-inline my-2">
                                     <label class="col-sm-6 col-form-label">Ketentuan BPJS TK</label>
                                     <div class="col-sm-6 input-group" style="padding-left: 0rem">
                                         <input type="text" placeholder="Masukan Ketentuan BPJS TK" name="bpjsTK" class="form-control  @error('bpjsTK') is-invalid @enderror">
@@ -76,15 +85,6 @@
                                                 <div class="input-group-text">%</div>
                                             </div>
                                         @error('bpjsJp')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-inline my-2">
-                                    <label class="col-sm-6 col-form-label">Jumlah Hari Kerja</label>
-                                    <div class="col-sm-6" style="padding-left: 0rem">
-                                        <input type="text" placeholder="Masukan Jumlah Hari Kerja" name="TotalHari" style="width: 100%" class="form-control  @error('TotalHari') is-invalid @enderror" name="notel">
-                                        @error('TotalHari')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>

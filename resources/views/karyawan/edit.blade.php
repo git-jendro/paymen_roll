@@ -178,7 +178,7 @@
                                     <div class="col-sm-8">
                                         <select name="statusKerja" class="form-control @error('statusKerja') is-invalid @enderror">
                                             @foreach ($ketentuan as $row)
-                                                @if ($row->qualifier == 'STATUSKERJA')
+                                                @if ($row->qualifier == 'STATUSKARYAWAN')
                                                     <option value="{{$row->code}}" {{$row->code == $karyawan->statusKerja ? 'selected' : ''}}>{{$row->localizedName}}</option>
                                                 @endif
                                             @endforeach

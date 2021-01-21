@@ -101,10 +101,13 @@ class KaryawanController extends Controller
         $absen->jmlIzin = 0;
         $absen->jmlCuti = 0;
         $absen->jmlLibur = 0;
+        $absen->jmlLembur = 0;
         $absen->totalHari = 0;
         $absen->isHitung = 1;
         $absen->isBayar = 1;
         $absen->isBayar = 1;
+        $absen->gajiPokok = $request->tipeumr;
+        $absen->gajiBersih = $request->tipeumr;
         $absen->save();
 
         $carbon = $this->carbon();
@@ -112,6 +115,7 @@ class KaryawanController extends Controller
             $data = new Absen;
             $data->absensi_gaji_id = $absen->id;
             $data->month = $carbon->monthName;
+            $data->year = $carbon->year;
             $data->daysamonth = $carbon->daysInMonth;
             $data->data = '';
             $data->save();

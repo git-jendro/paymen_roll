@@ -192,7 +192,7 @@
                 BPJS Pensiun 1%
             </td>
             <td style="width: 150px">
-                : {{$absen->bpjsJP}}
+                : {{$absen->bpjsJp}}
             </td>
         </tr>
         <tr>

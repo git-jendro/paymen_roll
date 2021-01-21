@@ -18,7 +18,7 @@ class Karyawan extends Model
 
     public function absen()
     {
-        return $this->hasOne(AbsensiGaji::class, 'nip');
+        return $this->hasOne(AbsensiGaji::class, 'nip', 'nip');
     }
     
 }

@@ -4,7 +4,12 @@
 
 @section('content')
 
-<div class="container ml-5">
+<div class="container ml-4">
+    @if (session('store'))
+        <div class="alert alert-success mt-5">
+            {{ session('store') }}
+        </div>
+    @endif
     <div class="mt-4 ml-5">
         <div class="row">
             <div class="col-md-4 py-4">

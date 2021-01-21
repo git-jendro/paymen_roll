@@ -6,7 +6,6 @@ use App\Absen;
 use App\AbsensiGaji;
 use App\Karyawan;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class AbsenController extends Controller
 {
@@ -54,6 +53,7 @@ class AbsenController extends Controller
                     $absen = new Absen;
                     $absen->absensi_gaji_id = $absensi->id;
                     $absen->month = $carbon->monthName;
+                    $absen->year = $carbon->year;
                     $absen->daysamonth = $carbon->daysInMonth;
                     $absen->data = '';
                     $absen->save();
@@ -84,6 +84,7 @@ class AbsenController extends Controller
         $absen->jmlIzin = $i;
         $absen->jmlCuti = $c;
         $absen->jmlLibur = $l;
+        $absen->jmlLembur = $o;
         $absen->totalHari = $total;
         $absen->save();
         
@@ -141,7 +142,7 @@ class AbsenController extends Controller
     {
         $carbon = $this->carbon()->monthName;
         $data = $this->absen();
-        $absen = AbsensiGaji::orderBy('created_at', 'desc')->get();
+        $absen = AbsensiGaji::orderBy('created_at', 'desc')->with('karyawan')->get();
         return response()->json([
             'absen' => $absen,
             'data' => $data

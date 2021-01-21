@@ -29,11 +29,12 @@ Route::get('/karyawan/{nip}/delete', 'KaryawanController@destroy');
 
 //Route Gaji
 Route::get('/gaji', 'GajiController@index');
-Route::get('/gaji/ketentuan', 'GajiController@ketentuan');
+Route::get('/gaji/ketentuan', 'GajiController@ketentuan_view');
 Route::get('/gaji/status', 'GajiController@status');
 Route::post('/gaji/store', 'GajiController@store');
 Route::post('/gaji/ketentuan/store', 'GajiController@ketentuan_store');
 Route::post('/gaji/print', 'GajiController@print');
+Route::get('/gaji/hitung', 'GajiController@hitung');
  
 //Route Absensi
 Route::get('/absen', 'AbsenController@index');
@@ -44,4 +45,14 @@ Route::get('/absen/store/{id}/{m}/{s}/{i}/{c}/{l}/{o}/{total}/{names}/{index}', 
 
 //Route Laporan
 Route::get('/laporan', 'LaporanController@index'); 
-Route::get('/laporan/lihat', 'LaporanController@lihat');
+Route::get('/laporan/lihat/', 'LaporanController@lihat');
+Route::get('/laporan/{id}', 'LaporanController@show');
+Route::post('/laporan/store', 'LaporanController@store');
+Route::get('/laporan/create/{month}/{year}/{status}', 'LaporanController@create'); 
+
+//Route Filter Karyawan
+Route::post('/nip', 'FilterKaryawanController@nip'); 
+Route::post('/nik', 'FilterKaryawanController@nik'); 
+Route::post('/tipe', 'FilterKaryawanController@tipe'); 
+Route::post('/nama', 'FilterKaryawanController@nama'); 
+Route::post('/jk', 'FilterKaryawanController@jk');

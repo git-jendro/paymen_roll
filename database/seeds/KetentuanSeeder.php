@@ -68,14 +68,24 @@ class KetentuanSeeder extends Seeder
             'localizedName' => 'Resign'
         ]);
         Ketentuan::create([
+            'qualifier' => 'STATUSKARYAWAN',
+            'code'  => '1',
+            'localizedName' => 'Karyawan Tetap'
+        ]);
+        Ketentuan::create([
+            'qualifier' => 'STATUSKARYAWAN',
+            'code'  => '2',
+            'localizedName' => 'Karyawan Kontrak'
+        ]);
+        Ketentuan::create([
             'qualifier' => 'HITUNG',
             'code'  => '1',
-            'localizedName' => 'Dihitung'
+            'localizedName' => 'Belum Dihitung'
         ]);
         Ketentuan::create([
             'qualifier' => 'HITUNG',
             'code'  => '2',
-            'localizedName' => 'Belum'
+            'localizedName' => 'Sudah Dihitung'
         ]);
         Ketentuan::create([
             'qualifier' => 'BAYAR',
