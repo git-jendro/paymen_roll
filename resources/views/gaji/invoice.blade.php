@@ -7,10 +7,8 @@
         body {
             font-size: 10pt;
             padding-top: 1rem;
+            font-family: DejaVu Sans, sans-serif;
         }
-        /* table td, table th {
-            border: 1px solid;
-        } */
         .rowspan {
             border-left-width: 10px;
         }
@@ -30,10 +28,6 @@
     </style>
 </head>
 <body>
-    {{-- <span><p><h4><u>PT. Artha Kreasi Utama</u></h4>
-        Jl. Kebayoran Lama Raya No. 198, Jakarta Selatan<br>
-        Phone (021)727 8816 / 28126440</p>
-    </span> --}}
     <ul class="list-inline">
         <li class="item">
             <img src="{{ public_path('img/logo.png')}}">
@@ -76,7 +70,13 @@
                 Bank
             </td>
             <td style="width: 150px">
-                : {{$absen->karyawan->namaBank}}
+                @foreach ($ketentuan as $row)
+                    @if ($row->qualifier == 'BANK')
+                        @if ($row->code == $absen->karyawan->namaBank)
+                            : {{$row->localizedName}}
+                        @endif
+                    @endif
+                @endforeach
             </td>
         </tr>
         <tr>
@@ -84,7 +84,7 @@
                 Jabatan
             </td>
             <td style="width: 150px">
-                : @foreach ($ketentuan as $row)
+                @foreach ($ketentuan as $row)
                     @if ($row->qualifier == 'JABATAN')
                         @if ($row->code == $absen->karyawan->jabatan)
                             : {{$row->localizedName}}
@@ -107,7 +107,7 @@
                 Divisi
             </td>
             <td style="width: 150px">
-                : @foreach ($ketentuan as $row)
+                @foreach ($ketentuan as $row)
                     @if ($row->qualifier == 'DIVISI')
                         @if ($row->code == $absen->karyawan->divisi)
                             : {{$row->localizedName}}
@@ -166,7 +166,15 @@
                 Tunjangan Tetap
             </td>
             <td style="width: 150px">
-                : Tunjangan Tetap
+                @if ($absen->karyawan->statusKaryawan == 1)
+                    @foreach ($ketentuan as $row)
+                        @if ($row->qualifier == 'TUNJANGAN')
+                            : {{$row->flagAttr1}}
+                        @endif
+                    @endforeach
+                @else
+                    : -
+                @endif
             </td>
             <td style="width: 150px">
                 
@@ -231,10 +239,10 @@
         </tr>
         <tr>
             <td style="width: 150px">
-                Jam Lembur
+                Jumlah Lembur
             </td>
             <td style="width: 150px">
-                : Lembur
+                : {{$absen->jmlLembur}} Hari
             </td>
             <td style="width: 150px">
                 
@@ -243,7 +251,15 @@
                 Potongan Kas
             </td>
             <td style="width: 150px">
-                : Potongan Kas
+                @if ($absen->karyawan->statusKaryawan == 2)
+                    @foreach ($ketentuan as $row)
+                        @if ($row->qualifier == 'POTONGAN')
+                            : {{$row->sum('flagAttr1')}}
+                        @endif
+                    @endforeach
+                @else
+                    : -
+                @endif
             </td>
         </tr>
         <tr>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Absen;
 use App\AbsensiGaji;
+use App\Karyawan;
 use App\Ketentuan;
 use Illuminate\Http\Request;
 use PDF;
@@ -22,7 +23,8 @@ class GajiController extends Controller
     
     public function index()
     {
-        $gaji = $this->absensi_get();
+        // $gaji = $this->absensi_get();
+        $gaji = Karyawan::orderBy('statusKerja')->with('absen')->paginate(25);
         $ketentuan = $this->ketentuan();
         return view('/gaji/index', compact('gaji', 'ketentuan'));
     }
@@ -75,7 +77,7 @@ class GajiController extends Controller
         $ketentuan->flagAttr1 = $request->insentif;
         $ketentuan->save();
 
-        $ketentuan = new Ketentuan;
+        $ketentuan = new Ketentuan; 
         $ketentuan->qualifier = 'BPJSTK';
         $ketentuan->code = 1;
         $ketentuan->localizedName = 'BPJSTK';
@@ -244,7 +246,120 @@ class GajiController extends Controller
             $ketentuan->save();
             
         }
-        return redirect()->action('HomeController@index')->with('store', 'Data Ketentuan telah ditambahkan !');
+        if (request()->has(['namapotongan3','potongan3'])) {
+            if ($request->namapotongan3 == null) {
+                
+            } elseif ($request->namapotongan3 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'POTONGAN';
+                $ketentuan->code = 3;
+                $ketentuan->localizedName = $request->namapotongan3;
+                $ketentuan->flagAttr1 = $request->potongan3;
+                $ketentuan->save();
+            }
+            
+        }elseif (request()->has(['are4','potongan4'])) {
+            if ($request->namapotongan4 == null) {
+                
+            } elseif ($request->namapotongan4 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'POTONGAN';
+                $ketentuan->code = 4;
+                $ketentuan->localizedName = $request->namapotongan4;
+                $ketentuan->flagAttr1 = $request->potongan4;
+                $ketentuan->save();
+            }
+
+        }elseif (request()->has(['namapotongan5','potongan5'])) {
+            if ($request->namapotongan5 == null) {
+                
+            } elseif ($request->namapotongan5 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'POTONGAN';
+                $ketentuan->code = 5;
+                $ketentuan->localizedName = $request->are5;
+                $ketentuan->flagAttr1 = $request->um5;
+                $ketentuan->save();
+            }
+
+        }elseif (request()->has(['namapotongan6','potongan6'])) {
+            if ($request->namapotongan6 == null) {
+                
+            } elseif ($request->namapotongan6 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'POTONGAN';
+                $ketentuan->code = 6;
+                $ketentuan->localizedName = $request->namapotongan6;
+                $ketentuan->flagAttr1 = $request->potongan6;
+                $ketentuan->save();
+            }
+
+        }elseif (request()->has(['namapotongan7','potongan7'])) {
+            if ($request->namapotongan7 == null) {
+                
+            } elseif ($request->namapotongan7 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'POTONGAN';
+                $ketentuan->code = 7;
+                $ketentuan->localizedName = $request->namapotongan7;
+                $ketentuan->flagAttr1 = $request->potongan7;
+                $ketentuan->save();
+            }
+
+        }elseif (request()->has(['namapotongan8','potongan8'])) {
+            if ($request->namapotongan8 == null) {
+                
+            } elseif ($request->namapotongan8 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'POTONGAN';
+                $ketentuan->code = 8;
+                $ketentuan->localizedName = $request->namapotongan8;
+                $ketentuan->flagAttr1 = $request->potongan8;
+                $ketentuan->save();
+            }
+
+        }elseif (request()->has(['namapotongan9','potongan9'])) {
+            if ($request->namapotongan9 == null) {
+                
+            } elseif ($request->namapotongan9 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'POTONGAN';
+                $ketentuan->code = 9;
+                $ketentuan->localizedName = $request->namapotongan9;
+                $ketentuan->flagAttr1 = $request->potongan9;
+                $ketentuan->save();
+            }
+
+        }elseif (request()->has(['namapotongan10','potongan10'])) {
+            if ($request->namapotongan10 == null) {
+                
+            } elseif ($request->namapotongan10 == null) {
+
+            } else {
+                $ketentuan = new Ketentuan;
+                $ketentuan->qualifier = 'POTONGAN';
+                $ketentuan->code = 10;
+                $ketentuan->localizedName = $request->namapotongan10;
+                $ketentuan->flagAttr1 = $request->potongan10;
+            }
+            $ketentuan->save();
+            
+        }
+        return redirect()->action('GajiController@ketentuan_view')->with('store', 'Data Ketentuan telah diperbarui !');
     }
 
     public function show($id)
@@ -254,8 +369,8 @@ class GajiController extends Controller
 
     public function ketentuan_view()
     {
-
-        return view('/gaji/ketentuan');
+        $ketentuan = $this->ketentuan();
+        return view('/gaji/ketentuan', compact('ketentuan'));
     }
 
 
@@ -270,20 +385,38 @@ class GajiController extends Controller
     }
  
     public function print(Request $request)
-    {
-        if (request()->has('check')) { 
-            foreach ($request->check as $id) {
-                $ketentuan = $this->ketentuan();
-                $periode = Absen::where('absensi_gaji_id', $id)->first();
-                // dd(Absen::where('absensi_gaji_id', $id)->first());
-                $absen = $this->absensi_first($id)->first();
-                $pdf = PDF::loadView('/gaji/invoice', compact('absen', 'ketentuan', 'periode'));
-                return $pdf->download('invoice-gaji-'.$absen->karyawan->nama.'('.$absen->nip.').pdf');
-            }
-            // return view('/gaji/invoice', compact('absen', 'ketentuan', 'periode'));
-        }else {
-            return redirect()->action('GajiController@index')->with('fail', 'Silahkan pilih data yang ingin dicetak');
+    {   
+        foreach ($request->items as $id) {
+            $ketentuan = $this->ketentuan();
+            $periode = Absen::where('absensi_gaji_id', $id)->first();
+            $absen = $this->absensi_first($id)->with('karyawan')->first();
+            $pdf = PDF::loadView('/gaji/invoice', compact('absen', 'ketentuan', 'periode'));
+            return $pdf->download('invoice-gaji-'.$absen->karyawan->nama.'('.$absen->nip.').pdf');
         }
+        // return response()->json($request);
+        //     $ketentuan = $this->ketentuan();
+        //     $periode = Absen::where('absensi_gaji_id', $request)->first();
+        //     $absen = $this->absensi_first($request)->with('karyawan')->first();
+        //     // dd($absen);
+        //     $pdf = PDF::loadView('/gaji/invoice', compact('absen', 'ketentuan', 'periode'));
+        //     return $pdf->download('invoice-gaji-'.$absen->nama.'('.$absen->nip.').pdf');
+        
+        // $html = '';
+        // foreach ($request->items as $id) {
+        //     $ketentuan = $this->ketentuan();
+        //     $periode = Absen::where('absensi_gaji_id', $id)->first();
+        //     $absen = $this->absensi_first($id)->first();
+        //     $view = view('/gaji/invoice', ([
+        //         'absen' => $absen, 
+        //         'ketentuan' => $ketentuan, 
+        //         'periode' => $periode
+        //         ]));
+        //     $html .= $view->render();
+        // }
+        // $pdf = PDF::loadView($html);
+        // return $pdf->download('invoice-gaji-'.$absen->karyawan->nama.'('.$absen->nip.').pdf');
+
+        // return response()->json();
     }
 
     public function validateRequest()
@@ -310,55 +443,10 @@ class GajiController extends Controller
         );
     }
 
-    // public function umr($umr)
-    // {
-    //     if (request()->has(['area3','umr3'])) {
-    //         $umr->update([
-    //             'area3' => request()->area3,
-    //             'umr3' => request()->umr3,
-    //         ]);
-    //     }elseif (request()->has(['are4','umr4'])) {
-    //         $umr->update([
-    //             'are4' => request()->are4,
-    //             'umr4' => request()->umr4,
-    //         ]);
-    //     }elseif (request()->has(['area5','umr5'])) {
-    //         $umr->update([
-    //             'area5' => request()->area5,
-    //             'umr5' => request()->umr5,
-    //         ]);
-    //     }elseif (request()->has(['area6','umr6'])) {
-    //         $umr->update([
-    //             'area6' => request()->area6,
-    //             'umr6' => request()->umr6,
-    //         ]);
-    //     }elseif (request()->has(['area7','umr7'])) {
-    //         $umr->update([
-    //             'area7' => request()->area7,
-    //             'umr7' => request()->umr7,
-    //         ]);
-    //     }elseif (request()->has(['area8','umr8'])) {
-    //         $umr->update([
-    //             'area8' => request()->area8,
-    //             'umr8' => request()->umr8,
-    //         ]);
-    //     }elseif (request()->has(['area9','umr9'])) {
-    //         $umr->update([
-    //             'area9' => request()->area9,
-    //             'umr9' => request()->umr9,
-    //         ]);
-    //     }elseif (request()->has(['area10','umr10'])) {
-    //         $umr->update([
-    //             'area10' => request()->area10,
-    //             'umr10' => request()->umr10,
-    //         ]);
-    //     }
-    // }
-
-    public function hitung()
-    {
+    public function hitung(Request $request)
+    {   
         //Get data dari table absensi_gaji yang statusnya belum dihitung
-        $gaji = AbsensiGaji::where('isHitung', 1)->get();
+        $gaji = AbsensiGaji::where('isHitung', 1)->with('karyawan')->get();
         //Get value ketentuan Lembur
         $l = Ketentuan::where('qualifier', 'LEMBUR')->value('flagAttr1');
         //Get value ketentuan Insentif
@@ -375,36 +463,41 @@ class GajiController extends Controller
         $t = Ketentuan::where('qualifier', 'TUNJANGAN')->sum('flagAttr1');
         foreach ($gaji as $key) {
             //Get value Gaji Pokok
-            $raw = Ketentuan::where('qualifier', 'TIPEUMR')->where('code', $key->gajiPokok)->value('flagAttr1');
+            $raw = Ketentuan::where('qualifier', 'TIPEUMR')->where('code', $key->karyawan->tipeumr)->value('flagAttr1');
             //Kalkulasi jumlah Lembur
             $lembur = $raw / $l * $key->jmlLembur;
+            $gk= $raw + $t + $lembur;
+            if ($key->karyawan->statusKaryawan == 1) {
+                //Kalkulasi Total Hari Kerja
+                $th = $key->TotalHari - $key->jmlLibur;
+    
+                //Kalkulasi Potongan Absen
+                $pa = (($key->jmlCuti + $key->jmlIzin) * ($raw + $t)) / $th;
+                //Kalkulasi Potongan BPJSKES
+                $pbpjs = ($raw / 100) * $kes;
+    
+                //Kalkulasi Total Gaji Inbound
+                $tg = ($raw + $lembur + $i) - ($pa + $pbpjs);
+            } else {
+
+                $pa = $p;
+                // Kalkulasi Gaji Harian
+                $gh = $raw / $key->jmlMasuk;
+
+                // Kalkulasi Total Gaji Daily Worker
+                $tg =  $gh * $key->jmlMasuk + $lembur - $p;
+            }
             
-            //Kalkulasi Gaji Harian
-            // $gh = $raw / $key->jmlMasuk;
-
-            //Kalkulasi Total Gaji Daily Worker
-            // $tg =  $gh * $key->jmlMasuk + $lembur - $p;
-
-            //Kalkulasi Total Hari Kerja
-            $th = $key->TotalHari - $key->jmlLibur;
-
-            //Kalkulasi Potongan Absen
-            $pa = (($key->jmlCuti + $key->jmlIzin) * ($raw + $t)) / $th;
-
-            //Kalkulasi Potongan BPJSKES
-            $pbpjs = ($raw / 100) * $kes;
-
-            //Kalkulasi Total Gaji Inbound
-            $tg = ($raw + $lembur + $i) - ($pa + $pbpjs);
             $data = explode('.', $tg);
             $result =(int) value($data[0]);
+
             $absen = AbsensiGaji::find($key->id);
             $absen->lembur = $lembur;
             $absen->insentif = $i;
             $absen->bpjsTk = $tk;
             $absen->bpjsKes = $kes;
             $absen->bpjsJp = $jp;
-            $absen->gajiKotor = $raw;
+            $absen->gajiKotor = $gk;
             $absen->totalPotongan = $pa;
             $absen->gajiBersih = $result;
             $absen->isHitung = 2;
@@ -412,5 +505,6 @@ class GajiController extends Controller
 
         }
         return redirect()->action('GajiController@index')->with('hitung', 'Gaji telah dihitung !');
+        // return response()->json('Hello !');
     }
 }

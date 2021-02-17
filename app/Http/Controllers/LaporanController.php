@@ -8,6 +8,8 @@ use App\DataLaporan;
 use App\Karyawan;
 use App\Ketentuan;
 use App\Laporan;
+use PDF;
+use Carbon\Carbon;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 use Symfony\Component\Console\Input\Input;
@@ -21,20 +23,16 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        // $stat = Karyawan::select('nip')->where('gajiPokok', 1);
-        
-
-        // $ket = AbsensiGaji::select('id')->where('nip', 10);
-        // $coll = Absen::whereHas('data', function ($query) use ($ket)
-        // {
-        //     $query->whereIn('absensi_gaji_id', $ket);
-        // })->with('data')->get();
-        // dd($absen);
         $data = Absen::all();
         $status = Ketentuan::where('qualifier', 'STATUSKARYAWAN')->get();
-        $laporan = $this->laporan_get();
+        $laporan = Laporan::paginate(25);
+        $carbon = Carbon::create();
+        $bulan = [];
+        for ($m=1; $m<=12; $m++) {
+            $bulan[] = Carbon::create()->months($m)->monthName;
+        }
 
-        return view('/laporan/index', compact('data', 'status', 'laporan'));
+        return view('/laporan/index', compact('data', 'status', 'laporan', 'bulan'));
     }
 
     /**
@@ -44,7 +42,7 @@ class LaporanController extends Controller
      */
     public function create($month, $year, $status)
     {
-        $stat = Karyawan::select('nip')->where('statusKerja', $status);
+        $stat = Karyawan::select('nip')->where('statusKaryawan', $status);
         $bul = Absen::select('absensi_gaji_id')->where([
             ['month', $month],
             ['year', $year],
@@ -56,20 +54,16 @@ class LaporanController extends Controller
         })->with('karyawan')->get();
 
         $ket = Ketentuan::where([
-            ['qualifier', 'TIPEKARYAWAN'],
+            ['qualifier', 'STATUSKARYAWAN'],
             ['code', $status],
         ])->first();
-        // dd($status);
-        
-        // $collection = UserRule::select('id_menu')->where('id_level_user', Auth::user()->id_level_user);
-        // $sql_menu = $menu->whereHas('rule', function ($query) use ($collection) {
-        // $query->whereIn('id', $collection)
-        // ->where('is_main_menu', 0);
-        // })->get();
-        // $absen = AbsensiGaji::with('data')->get();
+        $bank = Ketentuan::where('qualifier', 'BANK')->get();
+        $divisi = Ketentuan::where('qualifier', 'DIVISI')->get();
         return response()->json([
             'absen' => $absen,
-            'ket' => $ket
+            'ket' => $ket,
+            'bank' => $bank,
+            'divisi' => $divisi,
         ]);
     }
 
@@ -82,7 +76,7 @@ class LaporanController extends Controller
     public function store(Request $request)
     {
         $ket = Ketentuan::where([
-            ['qualifier', 'TIPEKARYAWAN'],
+            ['qualifier', 'STATUSKARYAWAN'],
             ['code', $request->status],
         ])->first();
         $id = IdGenerator::generate(['table' => 'laporan', 'field' => 'id', 'length' => 6, 'prefix' =>'LAP']);
@@ -116,11 +110,15 @@ class LaporanController extends Controller
             $query->whereIn('id', $conn);
         })->with('karyawan')->get();
         $lap = $this->lap_con($id)->first();
-        
-        // dd($data);
+        $ket = Ketentuan::where('qualifier', 'STATUSKARYAWAN')->get();
+        $bank = Ketentuan::where('qualifier', 'BANK')->get();
+        $divisi = Ketentuan::where('qualifier', 'DIVISI')->get();
         return response()->json([
             'data' => $data,
-            'lap' => $lap
+            'lap' => $lap,
+            'ket' => $ket,
+            'bank' => $bank,
+            'divisi' => $divisi,
         ]);
     }
 
@@ -160,6 +158,31 @@ class LaporanController extends Controller
 
     public function lihat()
     {
-        return view('/laporan/lihat');
+        $data = Absen::all();
+        $status = Ketentuan::where('qualifier', 'STATUSKARYAWAN')->get();
+        $laporan = Laporan::paginate(25);
+        $carbon = Carbon::create();
+        $bulan = [];
+        for ($m=1; $m<=12; $m++) {
+            $bulan[] = Carbon::create()->months($m)->monthName;
+        }
+
+        return view('/laporan/lihat', compact('data', 'status', 'laporan', 'bulan'));
+    }
+
+    public function simpan(Request $request)
+    {
+        $conn = DataLaporan::select('absensi_gaji_id')->where('laporan_id', $request->id);
+        $data = AbsensiGaji::whereHas('karyawan', function ($query) use ($conn)
+        {
+            $query->whereIn('id', $conn);
+        })->with('karyawan')->get();
+        $lap = $this->lap_con($request->id)->first();
+        $ket = Ketentuan::where('qualifier', 'STATUSKARYAWAN')->get();
+        $bank = Ketentuan::where('qualifier', 'BANK')->get();
+        $divisi = Ketentuan::where('qualifier', 'DIVISI')->get();
+        $pdf = PDF::loadview('laporan/print', compact('data', 'ket', 'bank', 'divisi'))->setPaper('a4', 'landscape');
+        return $pdf->stream('laporan-nilai-'.$lap->nama.'.pdf');
+        // return view('laporan/print', compact('data', 'ket', 'bank', 'divisi'));
     }
 }

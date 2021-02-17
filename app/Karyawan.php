@@ -13,7 +13,7 @@ class Karyawan extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'nip', 'nama' ,'JK' ,'tempatlahir' ,'dob' ,'notel' ,'alamatktp' ,'alamatdom' ,'email' ,'noktp' ,'nokk' ,'npwp' ,'statusNikah' ,'namaAyah' ,'namaIbu' ,'statusKerja' ,'tipeumr' ,'noBpjsKet' ,'noBpjsKes' ,'namaBank' ,'atasNama' ,'cabang' ,'noRek' ,'PendidikanTerakhir' ,'ipk' ,'tahunLulus' ,'statusPendidikan' ,'jabatan' ,'divisi' ,'penempatan' ,'tanggalMasuk' ,'noPkwt' ,'berakhir' ,'mulai' ,
+        'nip', 'nama' ,'JK' ,'tempatlahir' ,'dob' ,'notel' ,'alamatktp' ,'alamatdom' ,'email' ,'noktp' ,'nokk' ,'npwp' ,'statusNikah' ,'namaAyah' ,'namaIbu' ,'statusKerja', 'statusKaryawan' ,'tipeumr' ,'noBpjsKet' ,'noBpjsKes' ,'namaBank' ,'atasNama' ,'cabang' ,'noRek' ,'PendidikanTerakhir' ,'ipk' ,'tahunLulus' ,'statusPendidikan' ,'jabatan' ,'divisi' ,'penempatan' ,'tanggalMasuk' ,'noPkwt' ,'berakhir' ,'mulai' ,
     ];
 
     public function absen()

@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Absen;
 use App\AbsensiGaji;
+use App\Imports\KaryawanImport;
 use App\Karyawan;
+use App\Ketentuan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KaryawanController extends Controller
 {
@@ -28,9 +31,10 @@ class KaryawanController extends Controller
     public function index()
     {
         $ketentuan = $this->ketentuan();
-        $karyawan = $this->karyawan_get();
+        $karyawan = Karyawan::orderBy('statusKerja')->paginate(25);
+        $carbon = $this->carbon();
 
-        return view('/karyawan/index', compact('ketentuan', 'karyawan'));
+        return view('karyawan/index', compact('ketentuan', 'karyawan'));
     }
 
     /**
@@ -54,8 +58,11 @@ class KaryawanController extends Controller
     public function store(Request $request)
     {
         $this->validateRequest();
-        // $karyawan = Karyawan::create($this->validateRequest());
-        // $this->nip($karyawan);
+        $gp = Ketentuan::where([
+            ['qualifier', 'TIPEUMR'],
+            ['code', $request->tipeumr],
+        ])->first();
+        $carbon = $this->carbon();
         $nip = IdGenerator::generate(['table' => 'karyawan', 'field' => 'nip', 'length' => 15, 'prefix' =>'AK-INBOUND-']);
         Karyawan::create([
             'nip' => $nip,
@@ -74,6 +81,7 @@ class KaryawanController extends Controller
             'namaAyah' => $request->namaAyah,
             'namaIbu' => $request->namaIbu,
             'statusKerja' => $request->statusKerja,
+            'statusKaryawan' => $request->statusKaryawan,
             'tipeumr' => $request->tipeumr,
             'noBpjsKet' => $request->noBpjsKet,
             'noBpjsKes' => $request->noBpjsKes,
@@ -106,11 +114,9 @@ class KaryawanController extends Controller
         $absen->isHitung = 1;
         $absen->isBayar = 1;
         $absen->isBayar = 1;
-        $absen->gajiPokok = $request->tipeumr;
-        $absen->gajiBersih = $request->tipeumr;
+        $absen->gajiPokok = $gp->flagAttr1;
         $absen->save();
 
-        $carbon = $this->carbon();
         for ($i=0; $i < $carbon->daysInMonth; $i++) { 
             $data = new Absen;
             $data->absensi_gaji_id = $absen->id;
@@ -160,6 +166,11 @@ class KaryawanController extends Controller
     public function update(Request $request, $id)
     {
         $this->validateRequest();
+        $gp = Ketentuan::select('flagAttr1')->where([
+            ['qualifier', 'TIPEUMR'],
+            ['code', $request->tipeumr],
+        ])->first();
+        $carbon = $this->carbon();
         $this->karyawan_first($id)
         ->update([
             'nip' => $request->nip,
@@ -178,6 +189,7 @@ class KaryawanController extends Controller
             'namaAyah' => $request->namaAyah,
             'namaIbu' => $request->namaIbu,
             'statusKerja' => $request->statusKerja,
+            'statusKaryawan' => $request->statusKaryawan,
             'tipeumr' => $request->tipeumr,
             'noBpjsKet' => $request->noBpjsKet,
             'noBpjsKes' => $request->noBpjsKes,
@@ -197,7 +209,19 @@ class KaryawanController extends Controller
             'berakhir' => $request->berakhir,
             'mulai' => $request->mulai,
         ]);
-        // $this->nip($karyawan);
+
+        $absen = AbsensiGaji::where('nip', $id)->first();
+        AbsensiGaji::where('nip', $id)
+            ->update([
+                'gajiPokok' => $gp->flagAttr1
+            ]);
+
+        Absen::where('absensi_gaji_id', $absen->id)
+            ->update([
+                'month' => $carbon->monthName,
+                'year' => $carbon->year,
+                'daysamonth' => $carbon->daysInMonth,
+            ]);
         
         return redirect()->action('KaryawanController@index')->with('update', 'Data karyawan berhasil diupdate');
     }
@@ -238,39 +262,16 @@ class KaryawanController extends Controller
                 'namaAyah' => 'required',
                 'namaIbu' => 'required',
                 'statusKerja' => 'required',
+                'statusKaryawan' => 'required',
                 'tipeumr' => 'required',
                 'noBpjsKet' => 'required|numeric',
                 'noBpjsKes' => 'required|numeric',
-                //kondisi saat status nikah 2 (menikah) sedangkan field yang divalidasi kosong
-                // 'noBpjsKesPas' => 'required_if:statusNikah,2',
-                // 'namaPas' => 'required_if:statusNikah,2|required_with:namaAn1,namaAn2,namaAn3',
-                // 'jkPas' => 'required_if:statusNikah,2',
-                // 'noKtpPas' => 'required_if:statusNikah,2',
-                // 'tempatLahirPas' => 'required_if:statusNikah,2',
-                // 'dobPas' => 'required_if:statusNikah,2',
-                //kondisi field akan error bila field yang ada didalam required_with diisi sedang field yang yang divalidasi kosong
-                //pengisian field require_with tidak boleh pakai spasi
-                // 'noBpjsKesAn1' => 'required_with:namaAn1,jkAn1,tempatLahirAn1,dobAn1',
-                // 'namaAn1' => 'required_with:noBpjsKesAn1,jkAn1,tempatLahirAn1,dobAn1,namaAn2,namaAn3',
-                // 'jkAn1' => 'required_with:namaAn1,noBpjsKesAn1,tempatLahirAn1,dobAn1',
-                // 'tempatLahirAn1' => 'required_with:namaAn1,noBpjsKesAn1,jkAn1,dobAn1',
-                // 'dobAn1' => 'required_with:namaAn1,noBpjsKesAn1,tempatLahirAn1,jkAn1',
-                // 'namaAn2' => 'required_with:noBpjsKesAn2,jkAn2,tempatLahirAn2,dobAn2,namaAn3',
-                // 'noBpjsKesAn2' => 'required_with:namaAn2,jkAn2,tempatLahirAn2,dobAn2',
-                // 'jkAn2' => 'required_with:namaAn2,noBpjsKesAn2,tempatLahirAn2,dobAn2',
-                // 'tempatLahirAn2' => 'required_with:namaAn2,noBpjsKesAn2,jkAn2,dobAn2',
-                // 'dobAn2' => 'required_with:namaAn2,noBpjsKesAn2,jkAn2,tempatLahirAn2',
-                // 'namaAn3' => 'required_with:jkAn3,tempatLahirAn3,dobAn3,noBpjsKesAn3',
-                // 'noBpjsKesAn3' => 'required_with:namaAn3,jkAn3,tempatLahirAn3,dobAn3',
-                // 'jkAn3' => 'required_with:namaAn3,jkAn3,tempatLahirAn3,dobAn3,noBpjsKesAn3',
-                // 'tempatLahirAn3' => 'required_with:namaAn3,jkAn3,tempatLahirAn3,dobAn3,noBpjsKesAn3',
-                // 'dobAn3' => 'required_with:namaAn3,jkAn3,tempatLahirAn3,dobAn3,noBpjsKesAn3',
                 'namaBank' => 'required',
                 'atasNama' => 'required',
                 'cabang' => 'required',
                 'noRek' => 'required|numeric',
                 'PendidikanTerakhir' => 'required',
-                'ipk' => 'required',
+                'ipk' => 'required_if:PendidikanTerakhir,4,5',
                 'tahunLulus' => 'required|numeric',
                 'statusPendidikan' => 'required',
                 'jabatan' => 'required',
@@ -287,16 +288,16 @@ class KaryawanController extends Controller
             );
     }
 
-    // public function nip($karyawan)
-    // {
-    //     if (request()->has('nip')) {
-    //         $karyawan->update([
-    //             'nip' => request()->nip
-    //         ]);
-    //     }else {
-    //         $karyawan->update([
-    //             'nip' => IdGenerator::generate(['table' => 'karyawan', 'field' => 'nip', 'length' => 15, 'prefix' =>'AK-INBOUND-'])
-    //         ]);
-    //     }
-    // }
+    public function import(Request $request)
+    {
+		$this->validate($request, [
+			'file' => 'required|mimes:csv,xls,xlsx'
+		]);
+ 
+		// $file = $request->file('file');
+ 
+		Excel::import(new KaryawanImport, $request->file);
+
+		return redirect()->action('KaryawanController@index')->with('store', 'Data Karyawan berhasil diimport !');
+    }
 }

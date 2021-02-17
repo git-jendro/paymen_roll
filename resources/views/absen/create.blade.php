@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Absensi')
+@section('title', 'Input Absensi')
 
 @section('content')
 <div class="container">
-    <div class="mt-4">
+    <div class="mt-5">
         <div class="ml-4">
             <h5>SIM PT. Artha Kreasi Utama</h5>
         </div>
@@ -12,8 +12,22 @@
             <label>Input Absen Manual</label>
         </div>
     </div>
+    <div class="mt-4">
+        <div class="card">
+            <div class="form-inline">
+                <label class="col-sm-2 col-form-label"><b>Filter</b></label>
+            </div>
+            <div class="form-inline my-4">
+                <label class="col-sm-2 col-form-label">Nama</label>
+                <div class="col-sm-4">
+                    <input type="text" id="nama"
+                        class="form-control" placeholder="Filter Nama Karyawan" style="width: 100%" onkeyup="filternama()">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="container" style="margin-left: 0.25rem">
+<div class="container" style="margin-left: 2rem">
     <form action="" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row mt-4 ml-1">
@@ -55,37 +69,22 @@
         </div>
     </form>
 </div>
-<style>
-    body {
-        counter-reset: Serial;
-        /* Set the Serial counter to 0 */
-    }
-    table {
-        border-collapse: separate;
-    }
-    tr td:first-child:before {
-        counter-increment: Serial;
-        /* Increment the Serial counter */
-        content: counter(Serial);
-        /* Display the counter */
-    }
-</style>
 <script>
     $(document).ready(function(){
 
         var month = new Array();
-        month[0] = "January";
-        month[1] = "February";
-        month[2] = "March";
+        month[0] = "Januari";
+        month[1] = "Februari";
+        month[2] = "Maret";
         month[3] = "April";
-        month[4] = "May";
-        month[5] = "June";
-        month[6] = "July";
-        month[7] = "August";
+        month[4] = "Mei";
+        month[5] = "Juni";
+        month[6] = "Juli";
+        month[7] = "Agustus";
         month[8] = "September";
-        month[9] = "October";
+        month[9] = "Oktober";
         month[10] = "November";
-        month[11] = "December";
+        month[11] = "Desember";
         
         var d = new Date();
         var m = month[d.getMonth()];
@@ -97,7 +96,7 @@
         }
 
         document.getElementById("bulan").innerHTML = m;
-        $('#thead').append('<tr><th rowspan="2" class="pb-4">No.</th><th rowspan="2" class="pb-4">No. Pegawai</th><th colspan="'+daysInMonth (t, y)+'">Tanggal</th></tr><tr id="tgl"></tr>');
+        $('#thead').append('<tr><th rowspan="2" class="pb-4">No.</th><th rowspan="2" class="pb-4">Nama Karyawan</th><th colspan="'+daysInMonth (t, y)+'">Tanggal</th></tr><tr id="tgl"></tr>');
         for (let i = 1; i <= daysInMonth (t, y); i++) {
             $('#tgl').append('<th>'+i+'</th>');
         }
@@ -107,7 +106,8 @@
             success : function (res) {
                 $.each(res.absen, function (i, item) {
                     try {
-                        $('#body').append('<tr id="cek'+i+'"><td id="absen'+item.id+'" style="width:2%;"></td><td style="width:15%"><input type="text" name="nip('+i+')[]" class="form-control" value="'+item.karyawan.nama+'" readonly id="nip('+item.nip+')"></td></tr>')
+                        i++;
+                        $('#body').append('<tr id="cek'+i+'"><td id="absen'+item.id+'" style="width:2%;">'+i+'</td><td style="width:15%"><input type="text" name="nip('+i+')[]" class="form-control" value="'+item.karyawan.nama+'" readonly id="nip('+item.nip+')"></td></tr>')
                         $.each(res.data, function (x, val) {
                             try {
                                 if (item.id == val.absensi_gaji_id) {
@@ -174,5 +174,58 @@
         })
     }
     
+    function filternama() {
+        var nama = $('#nama').val();
+        let _token   = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type : 'post',
+            url : 'http://localhost:8000/absen/nama/',
+            data : {
+                nama : nama,
+                _token : _token,
+            },
+            success : function (res) {
+                $('#body').html('');
+                console.log(res);
+                if (!nama) {
+                    $.each(res.all, function (i, item) {
+                    try {
+                        i++;
+                        $('#body').append('<tr id="cek'+i+'"><td id="absen'+item.absen.id+'" style="width:2%;">'+i+'</td><td style="width:15%"><input type="text" name="nip('+i+')[]" class="form-control" value="'+item.nama+'" readonly id="nip('+item.nip+')"></td></tr>')
+                        $.each(res.data, function (x, val) {
+                            try {
+                                if (item.absen.id == val.absensi_gaji_id) {
+                                    $('#cek'+i).append('<td style="width:2.25%;"><input type="text" name="absen[]" value="'+val.data+'" class="form-control text-center absen'+item.absen.id+'" id="row'+val.id+'" onkeyup="absen('+item.absen.id+','+val.id+')" style="padding:0.3rem;text-transform: uppercase;"></td>');
+                                }
+                            } catch (error) {
+                                
+                            }
+                        })
+                    } catch (error) {
+                        console.log(error);
+                    }
+                })
+                } else {
+                    $.each(res.absen, function (i, item) {
+                    try {
+                        i++;
+                        $('#body').append('<tr id="cek'+i+'"><td id="absen'+item.absen.id+'" style="width:2%;">'+i+'</td><td style="width:15%"><input type="text" name="nip('+i+')[]" class="form-control" value="'+item.nama+'" readonly id="nip('+item.nip+')"></td></tr>')
+                        $.each(res.data, function (x, val) {
+                            try {
+                                if (item.absen.id == val.absensi_gaji_id) {
+                                    $('#cek'+i).append('<td style="width:2.25%;"><input type="text" name="absen[]" value="'+val.data+'" class="form-control text-center absen'+item.absen.id+'" id="row'+val.id+'" onkeyup="absen('+item.absen.id+','+val.id+')" style="padding:0.3rem;text-transform: uppercase;"></td>');
+                                }
+                            } catch (error) {
+                                
+                            }
+                        })
+                    } catch (error) {
+                        console.log(error);
+                    }
+                })
+                }
+            }
+        })
+    }
 </script>
 @endsection

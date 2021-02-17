@@ -70,12 +70,12 @@ class KetentuanSeeder extends Seeder
         Ketentuan::create([
             'qualifier' => 'STATUSKARYAWAN',
             'code'  => '1',
-            'localizedName' => 'Karyawan Tetap'
+            'localizedName' => 'Karyawan Kontrak'
         ]);
         Ketentuan::create([
             'qualifier' => 'STATUSKARYAWAN',
             'code'  => '2',
-            'localizedName' => 'Karyawan Kontrak'
+            'localizedName' => 'Karyawan Harian'
         ]);
         Ketentuan::create([
             'qualifier' => 'HITUNG',
@@ -112,55 +112,15 @@ class KetentuanSeeder extends Seeder
             'code'  => '1',
             'localizedName' => 'Inbound'
         ]);
-        // Ketentuan::create([
-        //     'qualifier' => 'DIVISI',
-        //     'code'  => '2',
-        //     'localizedName' => 'HRD'
-        // ]);
         Ketentuan::create([
             'qualifier' => 'JABATAN',
             'code'  => '1',
             'localizedName' => 'Staff'
         ]);
         Ketentuan::create([
-            'qualifier' => 'JABATAN',
-            'code'  => '2',
-            'localizedName' => 'Admin WFM & IT'
-        ]);
-        Ketentuan::create([
-            'qualifier' => 'JABATAN',
-            'code'  => '3',
-            'localizedName' => 'Reguler'
-        ]);
-        Ketentuan::create([
-            'qualifier' => 'JABATAN',
-            'code'  => '4',
-            'localizedName' => 'Unloading'
-        ]);
-        Ketentuan::create([
-            'qualifier' => 'JABATAN',
-            'code'  => '5',
-            'localizedName' => 'Inbounder-FD/RTN'
-        ]);
-        Ketentuan::create([
-            'qualifier' => 'JABATAN',
-            'code'  => '6',
-            'localizedName' => 'Inbounder Reguler'
-        ]);
-        Ketentuan::create([
-            'qualifier' => 'JABATAN',
-            'code'  => '7',
-            'localizedName' => 'Troubleshoot'
-        ]);
-        Ketentuan::create([
             'qualifier' => 'PENEMPATAN',
             'code'  => '1',
-            'localizedName' => 'Jakarta'
-        ]);
-        Ketentuan::create([
-            'qualifier' => 'PENEMPATAN',
-            'code'  => '2',
-            'localizedName' => 'Depok'
+            'localizedName' => 'Cimanggis'
         ]);
         Ketentuan::create([
             'qualifier' => 'STATUSPENDIDIKAN',
@@ -182,25 +142,40 @@ class KetentuanSeeder extends Seeder
             'code'  => '2',
             'localizedName' => 'BRI'
         ]);
-        // Ketentuan::create([
-        //     'qualifier' => 'AREA',
-        //     'code'  => '1',
-        //     'localizedName' => 'Jakarta'
-        // ]);
-        // Ketentuan::create([
-        //     'qualifier' => 'AREA',
-        //     'code'  => '2',
-        //     'localizedName' => 'Depok'
-        // ]);
-        // Ketentuan::create([
-        //     'qualifier' => 'AREA',
-        //     'code'  => '3',
-        //     'localizedName' => 'Jakarta'
-        // ]);
-        // Ketentuan::create([
-        //     'qualifier' => 'AREA',
-        //     'code'  => 'Jakarta',
-        //     'localizedName' => 'Jakarta'
-        // ]);
+        Ketentuan::create([
+            'qualifier' => 'BANK',
+            'code'  => '3',
+            'localizedName' => 'BCA'
+        ]);
+        Ketentuan::create([
+            'qualifier' => 'BANK',
+            'code'  => '4',
+            'localizedName' => 'DKI'
+        ]);
+        Ketentuan::create([
+            'qualifier' => 'BANK',
+            'code'  => '5',
+            'localizedName' => 'Mandiri'
+        ]);
+        Ketentuan::create([
+            'qualifier' => 'BANK',
+            'code'  => '6',
+            'localizedName' => 'CIMB Niaga'
+        ]);
+        Ketentuan::create([
+            'qualifier' => 'ROLE',
+            'code'  => '1',
+            'localizedName' => 'Admin'
+        ]);
+        Ketentuan::create([
+            'qualifier' => 'ROLE',
+            'code'  => '2',
+            'localizedName' => 'Direktur'
+        ]);
+        Ketentuan::create([
+            'qualifier' => 'ROLE',
+            'code'  => '3',
+            'localizedName' => 'Finance'
+        ]);
     }
 }

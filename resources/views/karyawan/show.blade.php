@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container">
-    <div class="mt-4">
+    <div class="mt-5">
         <div class="ml-4 mb-3">
                 <a href="{{url()->previous()}}">
                     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-square-fill" fill="currentColor"
@@ -21,7 +21,7 @@
             <h4>SIM PT. Artha Kreasi Utama</h4>
         </div>
         <div class="ml-4">
-            <h5>Form Tambah Karyawan</h5>
+            <h5>Informasi Karyawan</h5>
         </div>
     </div>
 </div>
@@ -129,11 +129,23 @@
                                 </div>
                             </div>
                             <div class="form-inline my-2">
+                                <label class="col-sm-4 col-form-label">Status Kerja</label>
+                                <div class="col-sm-8 py-2">
+                                    @foreach ($ketentuan as $row)
+                                        @if ($row->qualifier == 'STATUSKERJA')
+                                            @if ($row->code == $karyawan->statusKerja)
+                                                : {{$row->localizedName}}
+                                            @endif
+                                        @endif
+                                    @endforeach 
+                                </div>
+                            </div>
+                            <div class="form-inline my-2">
                                 <label class="col-sm-4 col-form-label">Status Karyawan</label>
                                 <div class="col-sm-8 py-2">
                                     @foreach ($ketentuan as $row)
                                         @if ($row->qualifier == 'STATUSKARYAWAN')
-                                            @if ($row->code == $karyawan->statusKerja)
+                                            @if ($row->code == $karyawan->statusKaryawan)
                                                 : {{$row->localizedName}}
                                             @endif
                                         @endif
@@ -168,154 +180,31 @@
                     </div>
                 </div>
             </div>
-            <div class="card my-3">
+        </div>
+        <div class="container col-4" style="margin-left: 0px; margin-right: 0px; padding-left:0px">
+            <div class="card">
                 <div class="card-body">
                     <div>
-                        <h5>Informasi Keluarga</h5>
+                        <h5>Informasi BPJS</h5>
                         <hr>
                     </div>
-                    <div class="row d-flex">
-                        <div class="container col-5 text-left" style="margin-left: 1rem; margin-right:0rem">
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Nama Pasangan</label>
-                                <div class="col-sm-8 py-2">
-                                    : {{$karyawan->namaPas}}
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Jenis Kelamin</label>
-                                <div class="col-sm-8 py-2">
-                                    @foreach ($ketentuan as $row)
-                                        @if ($row->qualifier == 'JENISKELAMIN')
-                                            @if ($row->code == $karyawan->jkPas)
-                                                : {{$row->localizedName}}
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Nomor KTP</label>
-                                <div class="col-sm-8 py-2">
-                                    : {{$karyawan->noKtpPas}}
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Tempat Lahir</label>
-                                <div class="col-sm-8 py-2">
-                                    : {{$karyawan->tempatLahirPas}}
-
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Tanggal Lahir</label>
-                                <div class="col-sm-8 py-2">
-                                    : {{$karyawan->dobPas}}
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Nama Anak 1</label>
-                                <div class="col-sm-8 py-2">
-                                    : {{$karyawan->namaAn1}}
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Jenis Kelamin</label>
-                                <div class="col-sm-8 py-2">
-                                    @foreach ($ketentuan as $row)
-                                        @if ($row->qualifier == 'JENISKELAMIN')
-                                            @if ($row->code == $karyawan->jkAn1)
-                                                : {{$row->localizedName}}
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Tempat Lahir</label>
-                                <div class="col-sm-8 py-2">
-                                    : {{$karyawan->tempatLahirAn1}}
-
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Tanggal Lahir</label>
-                                <div class="col-sm-8 py-2">
-                                    : {{$karyawan->dobAn1}}
-                                </div>
+                    <div class="container pl-3 pt-2" style="margin: auto">
+                        <div class="form-inline my-2">
+                            <label class="col-sm-4 col-form-label">No. BPJS TK</label>
+                            <div class="col-sm-8 py-2">
+                                : {{$karyawan->noBpjsKet}}
                             </div>
                         </div>
-                        <div class="container col-5 text-left" style="margin-right:0rem">
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Nama Anak 2</label>
-                                <div class="col-sm-8 py-2">
-                                    : {{$karyawan->namaAn2}}
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Jenis Kelamin</label>
-                                <div class="col-sm-8 py-2">
-                                    @foreach ($ketentuan as $row)
-                                        @if ($row->qualifier == 'JENISKELAMIN')
-                                            @if ($row->code == $karyawan->jkAn2)
-                                                : {{$row->localizedName}}
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Tempat Lahir</label>
-                                <div class="col-sm-8 py-2">
-                                    : {{$karyawan->tempatLahirAn2}}
-
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Tanggal Lahir</label>
-                                <div class="col-sm-8 py-2">
-                                    : {{$karyawan->dobAn2}}
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Nama Anak 3</label>
-                                <div class="col-sm-8 py-2">
-                                    : {{$karyawan->namaAn3}}
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Jenis Kelamin</label>
-                                <div class="col-sm-8 py-2">
-                                    @foreach ($ketentuan as $row)
-                                        @if ($row->qualifier == 'JENISKELAMIN')
-                                            @if ($row->code == $karyawan->jkAn3)
-                                                : {{$row->localizedName}}
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Tempat Lahir</label>
-                                <div class="col-sm-8 py-2">
-                                    : {{$karyawan->tempatLahirAn3}}
-
-                                </div>
-                            </div>
-                            <div class="form-inline my-2">
-                                <label class="col-sm-4 col-form-label">Tanggal Lahir</label>
-                                <div class="col-sm-8 py-2">
-                                    : {{$karyawan->dobAn3}}
-                                </div>
+                        <div class="form-inline my-2">
+                            <label class="col-sm-4 col-form-label">No. BPJS KES</label>
+                            <div class="col-sm-8 py-2">
+                                : {{$karyawan->noBpjsKes}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-        </div>
-        <div class="container col-4" style="margin-left: 0px; margin-right: 0px; padding-left:0px">
-            <div class="card">
+            <div class="card my-2">
                 <div class="card-body">
                     <div>
                         <h5>Informasi Rekening</h5>
@@ -435,8 +324,16 @@
                         <div class="form-inline my-2">
                             <label class="col-sm-4 col-form-label">Penempatan</label>
                             <div class="col-sm-8 py-2">
-                                : {{$karyawan->penempatan}}
+                                {{-- : {{$karyawan->penempatan}} --}}
+                                @foreach ($ketentuan as $row)
+                                    @if ($row->qualifier == 'PENEMPATAN')
+                                        @if ($row->code == $karyawan->divisi)
+                                            : {{$row->localizedName}}
+                                        @endif
+                                    @endif
+                                @endforeach
                             </div>
+                            
                         </div>
                         <div class="form-inline my-2">
                             <label class="col-sm-4 col-form-label">Tanggal Masuk</label>
@@ -460,52 +357,6 @@
                             <label class="col-sm-4 col-form-label">Tanggal Berakhir</label>
                             <div class="col-sm-8 py-2">
                                 : {{$karyawan->berakhir}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card my-2">
-                <div class="card-body">
-                    <div>
-                        <h5>Informasi BPJS</h5>
-                        <hr>
-                    </div>
-                    <div class="container pl-3 pt-2" style="margin: auto">
-                        <div class="form-inline my-2">
-                            <label class="col-sm-4 col-form-label">No. BPJS TK</label>
-                            <div class="col-sm-8 py-2">
-                                : {{$karyawan->noBpjsKet}}
-                            </div>
-                        </div>
-                        <div class="form-inline my-2">
-                            <label class="col-sm-4 col-form-label">No. BPJS KES</label>
-                            <div class="col-sm-8 py-2">
-                                : {{$karyawan->noBpjsKes}}
-                            </div>
-                        </div>
-                        <div class="form-inline my-2">
-                            <label class="col-sm-4 col-form-label">No. BPJS KES Pasangan</label>
-                            <div class="col-sm-8 py-2">
-                                : {{$karyawan->noBpjsKesPas}}
-                            </div>
-                        </div>
-                        <div class="form-inline my-2">
-                            <label class="col-sm-4 col-form-label">No. BPJS KES Anak 1</label>
-                            <div class="col-sm-8 py-2">
-                                : {{$karyawan->noBpjsKesAn1}}
-                            </div>
-                        </div>
-                        <div class="form-inline my-2">
-                            <label class="col-sm-4 col-form-label">No. BPJS KES Anak 2</label>
-                            <div class="col-sm-8 py-2">
-                                : {{$karyawan->noBpjsKesAn2}}
-                            </div>
-                        </div>
-                        <div class="form-inline my-2">
-                            <label class="col-sm-4 col-form-label">No. BPJS KES Anak 3</label>
-                            <div class="col-sm-8 py-2">
-                                : {{$karyawan->noBpjsKesAn3}}
                             </div>
                         </div>
                     </div>

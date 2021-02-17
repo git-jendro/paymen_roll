@@ -8,7 +8,10 @@ class Absen extends Model
 {
     protected $table = 'absen';
 
-    protected $guard = 'id';
+    // protected $guard = 'id';
+    protected $fillable = [
+       'absensi_gaji_id', 'month', 'year', 'daysamonth', 'data'
+    ];
 
     protected $primaryKey = 'id';
 

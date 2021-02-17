@@ -8,7 +8,10 @@ class AbsensiGaji extends Model
 {
     protected $table = 'absensi_gaji';
 
-    protected $guard = 'id';
+    // protected $guard = 'id';
+    protected $fillable = [
+        'nip', 'jmlMasuk', 'jmlSakit', 'jmlIzin', 'jmlCuti', 'jmlLibur', 'jmlLembur', 'totalHari', 'isHitung', 'isBayar', 'isBayar', 'gajiPokok'  
+    ];
 
     protected $primaryKey = 'id';
 

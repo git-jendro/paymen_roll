@@ -270,7 +270,7 @@ return [
             'required' => 'Harap mengisi kolom Pendidikan Terakhir !'
         ],
         'ipk' => [
-            'required' => 'Harap mengisi kolom IPK !'
+            'required_if' => 'Harap mengisi kolom IPK !'
         ],
         'tahunLulus' => [
             'required' => 'Harap mengisi kolom Tahun Lulus !',
